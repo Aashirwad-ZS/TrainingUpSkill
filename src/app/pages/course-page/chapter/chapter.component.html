@@ -1,0 +1,8 @@
+<div class="chapterContainer">
+  <ng-container *ngFor="let courseTitle of allChapters; index as i">
+    <app-chapter-wrapper
+      [courseTitles]="courseTitle"
+      [index]="i + 1"
+    ></app-chapter-wrapper>
+  </ng-container>
+</div>

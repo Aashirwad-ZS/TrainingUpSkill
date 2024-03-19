@@ -1,0 +1,29 @@
+<div class="heading">
+  <div class="topic">{{ prefixWord }} {{ title | titlecase }}</div>
+  <a class="view-all" *ngIf="isActive" [routerLink]="['/', title, 'all']"
+    >View all {{ title }}</a
+  >
+</div>
+<div class="card-wrapper">
+  <ng-container *ngIf="title == 'batches'">
+    <ng-container *ngFor="let item of allBatches">
+      <a [routerLink]="['/', 'batchpage', item.id]">
+        <app-batch-card [batchData]="item"></app-batch-card>
+      </a>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="title == 'paths'">
+    <ng-container *ngFor="let item of allPaths">
+      <a [routerLink]="['/', 'pathdashboard', item.id]"
+        ><app-path-card [singlePath]="item"></app-path-card
+      ></a>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="title == 'courses'">
+    <ng-container *ngFor="let item of allCourses">
+      <a [routerLink]="['/', 'course', item.id]">
+        <app-course-card [singleCourse]="item"></app-course-card>
+      </a>
+    </ng-container>
+  </ng-container>
+</div>

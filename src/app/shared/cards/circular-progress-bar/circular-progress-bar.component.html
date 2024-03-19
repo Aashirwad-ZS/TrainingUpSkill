@@ -1,0 +1,25 @@
+<kendo-circularprogressbar
+  [animation]="animation"
+  [progressColor]="colors"
+  [value]="value"
+  style="width: 60px; height: 60px"
+>
+  <ng-template
+    kendoCircularProgressbarCenterTemplate
+    let-color="color"
+    let-value="value"
+  >
+    <span
+      *ngIf="value !== 100"
+      style="height: 200px; font-size: 15px"
+      [style.color]="color"
+      >{{ value }}</span
+    >
+    <span
+      *ngIf="value === 100"
+      [style.color]="color"
+      style="width: 200px; height: 200px"
+      class="k-icon k-font-icon k-i-check"
+    ></span>
+  </ng-template>
+</kendo-circularprogressbar>

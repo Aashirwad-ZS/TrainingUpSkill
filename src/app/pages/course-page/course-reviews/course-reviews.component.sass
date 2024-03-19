@@ -1,0 +1,139 @@
+.course-reviews
+  width: 88vw
+
+  p
+    font-size: 18px
+    font-weight: 400
+    margin-bottom: 24px
+    text-align: left
+
+.rating-container
+  grid-gap: 10px
+  display: grid
+  gap: 10px
+  grid-template-columns: 120px 1fr
+
+  .average-rating-container
+    .average-rating-star-container
+      display: flex
+
+.stars-container
+  display: flex
+  justify-content: space-evenly
+
+.mat-icon
+  width: 19px
+
+  .stars-container-info &
+    width: 18px
+    margin-right: 3px
+
+.sub-text
+  opacity: 0.5
+  font-size: 14px
+  position: relative
+  top: -10px
+
+.progress-bar
+  background-color: white
+  border-radius: 6px
+  width: calc(100% - 200px)
+
+.progress
+  background: #ffc850
+  border-radius: 6px
+  height: 11px
+
+.ratings
+  display: flex
+  flex-direction: column
+  gap: 7px
+
+.rating
+  display: flex
+  align-items: center
+  justify-content: space-between
+
+.percent-rating
+  display: flex
+  justify-content: space-between
+  width: 140px
+
+.percentage-info
+  font-size: 13px
+  margin-top: 3px
+
+.rating-review-left
+  span
+    font-size: 17px
+    opacity: 0.5
+
+    &.active
+      opacity: 1
+      border-bottom: 4px solid #5624d0
+
+.rating-review
+  margin-top: 20px
+  display: flex
+  justify-content: space-between
+
+.add-feedback-button
+  border: 1px solid #5624d0
+  background-color: white
+  cursor: pointer
+  width: 200px
+  font-weight: 300
+  height: 2.2rem
+  font-size: 1rem
+  border-radius: 6px
+  color: #5624d0
+
+.add-review-and-rating-container
+  margin-top: 30px
+
+  .info-heading
+    margin-bottom: 8px
+    font-size: 14px
+    font-weight: 300
+
+  .review-container
+    background-color: var(--page-content-background-color)
+    border-radius: 1rem
+    margin-bottom: 1.2rem
+    padding: 1.6rem
+
+    .add-feedback
+      background-color: inherit
+      border: none
+      resize: none
+      font-size: 15px
+      width: 100%
+      outline: none
+
+  .stars
+    display: flex
+    flex-direction: column
+    gap: 4px
+    margin-bottom: 1.8rem
+
+  .buttons
+    align-items: center
+    display: flex
+    gap: 8px
+    justify-content: flex-end
+
+    button
+      border: 1px solid #5624d0
+      background-color: #5624d0
+      cursor: pointer
+      width: 200px
+      font-weight: 300
+      height: 2.2rem
+      font-size: 1rem
+      border-radius: 6px
+      color: white
+
+    #cancel
+      background-color: #f8f5ff
+      border: 1px solid #f75a5b
+      color: #f75a5b

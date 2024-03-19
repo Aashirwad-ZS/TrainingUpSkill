@@ -1,0 +1,27 @@
+<div class="card">
+  <img [src]="singleCourse.imageUrl" alt="" class="image" />
+  <div class="content-div">
+    <div class="header">
+      <div class="course-name">
+        {{ singleCourse.name }}{{ singleCourse.courseName }}
+      </div>
+      <div *ngIf="isProfile" class="progressCircle">
+        <i class="fa-regular fa-circle"></i>
+      </div>
+    </div>
+    <div *ngIf="isProfile" class="footer">
+      <div class="course-state-date">Start Date: 29 Feb 2024</div>
+      <div class="course-state-date">End Date: 29 Feb 2025</div>
+    </div>
+    <div *ngIf="!isProfile" class="author">
+      By {{ singleCourse.createdBy.name }}
+    </div>
+    <div *ngIf="!isProfile" class="fav-icon">
+      <button id="btn1">
+          <i class="btn" [style.color]="isButtonRed ? 'red' : 'grey'" 
+          (click)="toggleColor()" class="fa fa-heart"></i>
+          
+        </button>
+    </div>
+  </div>
+</div>

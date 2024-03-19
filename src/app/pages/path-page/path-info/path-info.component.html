@@ -1,0 +1,28 @@
+<div class="path-details">
+  <div class="path-info">
+    <div class="path-info-overview">
+      <img class="path-image" [src]="pathData.imageUrl" />
+      <div class="path-details-wrapper">
+        <div class="main-heading">
+          {{ pathData.name }}
+        </div>
+        <div class="count">{{ pathData.noOfCourses }} courses</div>
+        <div>
+          Date of Creation : {{ pathData.createdAt | date: "dd MMM yyyy" }}
+        </div>
+        <div>Created By : {{ pathData.createdBy.name }}</div>
+      </div>
+    </div>
+    <div class="path-about">
+      <div class="sub-heading">About</div>
+      <div>
+        <div class="course-description-line">
+          <div *ngFor="let string of about">
+            {{ string }}
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

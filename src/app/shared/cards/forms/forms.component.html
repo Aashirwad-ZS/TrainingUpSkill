@@ -1,0 +1,41 @@
+<div class="heading">
+  <div>Discussions...</div>
+  <button class="add-feedback-button" (click)="handleAddReview()">
+    Add Review
+  </button>
+</div>
+
+<form
+  *ngIf="isForm"
+  #loginForm="ngForm"
+  (ngSubmit)="loginUser(loginForm.value)"
+>
+  <div class="query-container">
+    <div class="add-query-wrapper">
+      <input
+        type="text"
+        required
+        placeholder="Title"
+        #name="ngModel"
+        name="name"
+        ngModel
+        class="add-title"
+      />
+      <textarea
+        name="desc"
+        class="add-description"
+        rows="10"
+        placeholder="Description"
+        #password="ngModel"
+        name="password"
+        ngModel
+      ></textarea>
+    </div>
+    <div class="buttons"></div>
+  </div>
+  <div class="buttons">
+    <button class="cancel-button" id="cancel" (click)="handleReviewClose()">
+      Cancel</button
+    ><button type="submit" class="update-button" id="submit">Submit</button>
+  </div>
+</form>

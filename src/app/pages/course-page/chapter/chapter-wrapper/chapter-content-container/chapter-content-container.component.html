@@ -1,0 +1,90 @@
+<div class="contentWrapper">
+  <div class="contents row">Content</div>
+</div>
+<ng-container *ngFor="let chapters of allChapters; index as i">
+  <div class="contentWrapper">
+    <div class="leftBar">
+      <div class="icon">
+        <svg
+          width="25px"
+          height="24px"
+          viewBox="0 0 25 24"
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+        >
+          <g
+            id="Web-Student"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <g
+              id="Course-structure-Q/A"
+              transform="translate(-144.000000, -729.000000)"
+              fill="#5624D0"
+              fill-rule="nonzero"
+            >
+              <g id="Group-3" transform="translate(118.005674, 664.000000)">
+                <g
+                  id="article_FILL0_wght400_GRAD0_opsz48-Copy"
+                  transform="translate(26.000000, 65.000000)"
+                >
+                  <path
+                    d="M5.23333333,18.7 L14.4,18.7 L14.4,16.7 L5.23333333,16.7 L5.23333333,18.7 Z M5.23333333,13 L18.7666667,13 L18.7666667,11 L5.23333333,11 L5.23333333,13 Z M5.23333333,7.3 L18.7666667,7.3 L18.7666667,5.3 L5.23333333,5.3 L5.23333333,7.3 Z M2,24 C1.46666667,24 1,23.8 0.6,23.4 C0.2,23 0,22.5333333 0,22 L0,2 C0,1.46666667 0.2,1 0.6,0.6 C1,0.2 1.46666667,0 2,0 L22,0 C22.5333333,0 23,0.2 23.4,0.6 C23.8,1 24,1.46666667 24,2 L24,22 C24,22.5333333 23.8,23 23.4,23.4 C23,23.8 22.5333333,24 22,24 L2,24 Z M2,22 L22,22 L22,2 L2,2 L2,22 Z M2,2 L2,22 L2,2 Z"
+                    id="Shape"
+                  ></path>
+                </g>
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="contents row" (click)="openPopup(i)">
+        {{ chapters.resourceName }}
+      </div>
+    </div>
+    <div (click)="markBtn(i)" class="rightBar">
+      <ng-container *ngIf="chapters.isVisited">
+        <div *ngIf="!chapters.isCompleted" class="completeBtn">
+          Mark as Completed
+        </div>
+        <div *ngIf="chapters.isCompleted" class="completeBtn">
+          <i class="fa-solid fa-circle-check"></i> Completed
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<!-- popup.component.html -->
+<div *ngIf="close" class="popup-container">
+  <div class="blur-background"></div>
+  <div class="popup-content">
+    <span class="close-button" (click)="closeButton()">
+      <i class="fa-regular fa-circle-xmark"></i>
+    </span>
+    <button (click)="openInNewTab()">
+      <svg
+        id="Layer_1"
+        height="23px"
+        width="23px"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px"
+        y="0px"
+        viewBox="0 0 122.6 122.88"
+        xml:space="preserve"
+        fill="var(--student-card-background-color)"
+      >
+        <title>Open in new tab</title>
+        <g>
+          <path
+            d="M110.6,72.58c0-3.19,2.59-5.78,5.78-5.78c3.19,0,5.78,2.59,5.78,5.78v33.19c0,4.71-1.92,8.99-5.02,12.09 c-3.1,3.1-7.38,5.02-12.09,5.02H17.11c-4.71,0-8.99-1.92-12.09-5.02c-3.1-3.1-5.02-7.38-5.02-12.09V17.19 C0,12.48,1.92,8.2,5.02,5.1C8.12,2,12.4,0.08,17.11,0.08h32.98c3.19,0,5.78,2.59,5.78,5.78c0,3.19-2.59,5.78-5.78,5.78H17.11 c-1.52,0-2.9,0.63-3.91,1.63c-1.01,1.01-1.63,2.39-1.63,3.91v88.58c0,1.52,0.63,2.9,1.63,3.91c1.01,1.01,2.39,1.63,3.91,1.63h87.95 c1.52,0,2.9-0.63,3.91-1.63s1.63-2.39,1.63-3.91V72.58L110.6,72.58z M112.42,17.46L54.01,76.6c-2.23,2.27-5.89,2.3-8.16,0.07 c-2.27-2.23-2.3-5.89-0.07-8.16l56.16-56.87H78.56c-3.19,0-5.78-2.59-5.78-5.78c0-3.19,2.59-5.78,5.78-5.78h26.5 c5.12,0,11.72-0.87,15.65,3.1c2.48,2.51,1.93,22.52,1.61,34.11c-0.08,3-0.15,5.29-0.15,6.93c0,3.19-2.59,5.78-5.78,5.78 c-3.19,0-5.78-2.59-5.78-5.78c0-0.31,0.08-3.32,0.19-7.24C110.96,30.94,111.93,22.94,112.42,17.46L112.42,17.46z"
+          ></path>
+        </g>
+      </svg>
+    </button>
+    <iframe [src]="iframeSrc"></iframe>
+  </div>
+</div>
