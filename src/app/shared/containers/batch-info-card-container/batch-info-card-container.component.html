@@ -1,0 +1,17 @@
+<div class="batch-trainers">
+  <div class="batch-trainers-top">
+    <div>
+      {{ heading }} <span class="count">({{ cardsData.length }})</span>
+    </div>
+  </div>
+  <div class="trainers-wrapper">
+    <ng-container *ngFor="let item of cardsData">
+      <div class="trainer-card-wrapper">
+        <app-name-info-card
+          [singleCardInfo]="item"
+          [heading]="heading"
+        ></app-name-info-card>
+      </div>
+    </ng-container>
+  </div>
+</div>

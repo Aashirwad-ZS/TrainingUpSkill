@@ -1,0 +1,19 @@
+<div class="profile-header-container">
+  <div class="user-details">
+    <div class="left-wrapper">
+      <img [src]="userProfile.picture" />
+    </div>
+
+    <div class="right-wrapper">
+      <p class="user-name">{{ userProfile.given_name }} {{ userProfile.family_name }}</p>
+      <p class="user-email">{{ userProfile.email }}</p>
+    </div>
+  </div>
+  <div class="completion-rate">
+    <div>
+      Completion Rate:
+      <app-circular-progress-bar></app-circular-progress-bar>
+    </div>
+    <div class="completion-logo"></div>
+  </div>
+</div>

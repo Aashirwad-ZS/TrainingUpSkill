@@ -1,0 +1,30 @@
+<div *ngIf="!isProfile" class="batch-card-parent-div">
+  <div class="batch-card-container">
+    <div class="batch-card-content">
+      <div class="batch-title">{{ batchData.name }}</div>
+      <div class="stream">Stream:{{ batchData.streamName }}</div>
+
+      <div class="no-of-students">
+        <i class="fa-solid fa-graduation-cap"></i>
+        {{ batchData.noOfStudents }} Students
+      </div>
+      <div class="date">
+        Start Date: {{ batchData.createdAt | date: "dd-MM-YYYY" }}
+        <br />
+        End Date: {{ batchData.endDate | date: "dd-MM-YYYY" }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isProfile" class="batch-card-type-2">
+  <div class="header">
+    <div class="batch-title">
+      <div class="batch-name">{{ batchData.name }}</div>
+      <div class="batch-type">{{ batchData.streamName }}</div>
+    </div>
+    <div class="progressCircle">
+      <i class="fa-regular fa-circle"></i>
+    </div>
+  </div>
+</div>

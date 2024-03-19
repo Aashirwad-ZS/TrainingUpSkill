@@ -1,0 +1,13 @@
+<div class="trainer-card-wrapper">
+  <div class="trainer-image-wrapper">
+    <img [src]="singleCardInfo.imageUrl" alt="" />
+  </div>
+  <div class="trainer-details-wrapper">
+    <div class="trainer-name-edit-icon">
+      <a class="trainer-name disable-link" href="/batch/18">{{
+        singleCardInfo.name
+      }}</a>
+    </div>
+    <div class="trainer-email">{{ singleCardInfo.email }}</div>
+  </div>
+</div>

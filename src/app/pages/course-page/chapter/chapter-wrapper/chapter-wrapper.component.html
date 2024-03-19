@@ -1,0 +1,32 @@
+<div class="chapter-outer-container">
+  <div *ngIf="isClicked" (click)="handleClick()" class="chapterCard">
+    <div class="leftBar">
+      <div class="leftContent">Chapter {{ index }}</div>
+    </div>
+    <div class="arrow-button"></div>
+    <!-- <div class="arrow-button"></div> -->
+
+    <div class="rightBar">
+      <div class="rightContent">
+        {{ courseTitles.name }}
+      </div>
+    </div>
+    <div *ngIf="courseTitles.progress == 100" class="progressBar">
+      <i class="fa-regular fa-circle-check fa-xl"></i>
+    </div>
+  </div>
+  <ng-container *ngIf="!isClicked">
+    <div (click)="handleClick()" class="chapterCardView">
+      <div class="leftContent">Chapter {{ index }}</div>
+      <div class="rightContent">
+        {{ courseTitles.name }}
+      </div>
+    </div>
+    <div class="contentContainer">
+      <app-chapter-content-container
+        [allChapters]="courseTitles.resourceResponses"
+      >
+      </app-chapter-content-container>
+    </div>
+  </ng-container>
+</div>

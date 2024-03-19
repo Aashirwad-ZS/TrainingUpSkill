@@ -1,0 +1,61 @@
+<div class="all-section-container">
+  <div class="content-container">
+    <div class="page-header">
+      {{ prefix | titlecase }} {{ heading | titlecase }}
+    </div>
+    <div class="paths-box">
+      <ng-container *ngIf="heading == 'paths' && prefix == 'all'">
+        <ng-container *ngIf="loading">
+          {{ getAllPaths() }}
+          <app-loading-card class="loading"></app-loading-card
+        ></ng-container>
+        <ng-container *ngIf="!loading">
+          <div *ngFor="let item of allPathsData" class="paths-card-wrapper">
+            <app-path-card [singlePath]="item"></app-path-card>
+          </div>
+        </ng-container>
+      </ng-container>
+      <ng-container *ngIf="heading == 'courses' && prefix == 'all'">
+        <ng-container *ngIf="loading">
+          {{ getAllCourses() }}
+          <app-loading-card class="loading"></app-loading-card
+        ></ng-container>
+        <ng-container *ngIf="!loading">
+          <div *ngFor="let item of allCoursesData" class="paths-card-wrapper">
+            <app-course-card [singleCourse]="item"></app-course-card>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="heading == 'batches' && prefix == 'all'">
+        <ng-container *ngIf="loading">
+          {{ getAllBatches() }}
+          <app-loading-card class="loading"></app-loading-card
+        ></ng-container>
+        <ng-container *ngIf="!loading">
+          <div *ngFor="let item of allBatchesData" class="paths-card-wrapper">
+            <app-batch-card [batchData]="item"></app-batch-card>
+          </div>
+        </ng-container>
+      </ng-container>
+
+      <ng-container *ngIf="heading == 'paths' && prefix == 'my'">
+        <div *ngFor="let item of onGoingPathsData" class="paths-card-wrapper">
+          <app-path-card [singlePath]="item"></app-path-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="heading == 'courses' && prefix == 'my'">
+        <div *ngFor="let item of onGoingCoursesData" class="paths-card-wrapper">
+          <app-course-card [singleCourse]="item"></app-course-card>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="heading == 'courses' && prefix == 'favourites'">
+        <div *ngFor="let item of allCoursesData" class="paths-card-wrapper">
+          <app-course-card [singleCourse]="item"></app-course-card>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>
