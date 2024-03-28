@@ -2,13 +2,20 @@
     display: flex
     justify-content: space-between
     align-items: center
-    width:88vw
+    width: 88vw
+
+    @media screen and (max-width: 768px)
+        flex-direction: column
 
 .user-details
     display: flex
 
 .left-wrapper img
-    border-radius: 50% 
+    border-radius: 50%
+    
+    @media screen and (max-width: 768px)
+      height: 40px
+      width: 40px
 
 .right-wrapper
     display: flex
@@ -22,3 +29,19 @@
 .user-email
     font-weight: 300
 
+.completition-text
+    width: 110px
+    padding-right: 1rem
+
+    @media screen and (max-width: 768px)
+        width: 75%
+
+.completion-rate
+    display: flex
+    height: 100px
+    justify-content: space-evenly
+    align-items: center
+
+    @media screen and (max-width: 768px)
+        justify-content: space-around
+        width: 100%

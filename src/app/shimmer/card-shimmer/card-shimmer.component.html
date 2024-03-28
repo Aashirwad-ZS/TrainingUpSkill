@@ -1,0 +1,6 @@
+  <div class="shimmer-card" [ngStyle]="{'height': height+ 'px'}">
+    <ng-container *ngFor="let width of [ 90, 80, 70,60,50]">
+      <app-shimmer-loading [width]="width + '%'" height="10px  "></app-shimmer-loading>
+    </ng-container>
+  </div>
+

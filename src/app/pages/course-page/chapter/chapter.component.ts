@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { CourseDataService } from '../../../services/course-data.service';
 import { ActivatedRoute } from '@angular/router';
+import { Chapter } from 'src/app/models/Chapter';
+import { loadChapterData } from 'src/app/state/action/course.actions';
+import { Store } from '@ngrx/store';
+import { selectChapterData } from 'src/app/state/selector/course.selector';
 
 @Component({
   selector: 'app-chapter',
@@ -9,16 +12,13 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ChapterComponent implements OnInit {
   id: string = '';
-  allChapters: any = [];
-  constructor(
-    private allChapterServices: CourseDataService,
-    private router: ActivatedRoute
-  ) {
+  allChapters: Chapter[] = [];
+  constructor(private store: Store, private router: ActivatedRoute) {
     this.id = this.router.snapshot.params['id'];
-    this.allChapterServices.getChapterData(this.id).subscribe((data) => {
-      this.allChapters = data.valueOf();
-      this.allChapters = this.allChapters.data;
-      console.log(this.allChapters);
+    // this.store.dispatch(loadChapterData({ courseId: this.id }));
+    this.store.select(selectChapterData).subscribe((chapter) => {
+      this.allChapters = chapter;
+      // console.log(this.allChapters);
     });
   }
   ngOnInit(): void {}

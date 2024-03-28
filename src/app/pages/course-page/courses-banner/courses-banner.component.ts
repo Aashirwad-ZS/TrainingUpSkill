@@ -1,6 +1,10 @@
 import { ActivatedRoute } from '@angular/router';
-import { CourseDataService } from '../../../services/course-data.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loadCourseAboutInfo } from 'src/app/state/action/course.actions';
+import { selectCourseAboutInfo } from 'src/app/state/selector/course.selector';
+import { Course } from 'src/app/models/Course';
+import { MiscellaneousService } from 'src/app/services/miscellaneous.service';
 
 @Component({
   selector: 'app-courses-banner',
@@ -9,24 +13,57 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoursesBannerComponent implements OnInit {
   id: string = '';
+  @Input() isRed: boolean = true;
 
-  CourseDetails: any = {};
+  CourseDetails: Course = {
+    id: 0,
+    name: '',
+    courseName: '',
+    imageUrl: '',
+    isAccessible: false,
+    description: '',
+    about: '',
+    createdBy: {
+      id: 0,
+      name: '',
+      imageUrl: '',
+      email: '',
+    },
+    createdAt: '',
+    isFavourite: false,
+    progress: 0,
+    enrolledAt: '',
+    completedAt: '',
+    noOfChapters: 0,
+    updatedAt: '',
+    level: 0,
+  };
   constructor(
-    private courseDataService: CourseDataService,
-    private router: ActivatedRoute
+    private store: Store,
+    private router: ActivatedRoute,
+    private misc: MiscellaneousService
   ) {
     this.id = router.snapshot.params['id'];
-    this.courseDataService.getCourseAboutInfo(this.id).subscribe((data) => {
-      this.CourseDetails = data.valueOf();
-      this.CourseDetails = this.CourseDetails.data;
-      console.log(this.CourseDetails);
+  }
+
+  ngOnInit(): void {
+    // this.store.dispatch(loadCourseAboutInfo({ courseId: this.id }));
+    this.store.select(selectCourseAboutInfo).subscribe((courseData) => {
+      this.CourseDetails = courseData;
     });
   }
 
-  ngOnInit(): void {}
-  isButtonRed: boolean = false;
-
   toggleColor() {
-    this.isButtonRed = !this.isButtonRed;
+    this.isRed = !this.isRed;
+    if (this.isRed) {
+      this.misc.postFavourite(this.CourseDetails.id).subscribe((res: any) => {
+        // this.showSuccess();
+      });
+    } else if (!this.isRed) {
+      this.misc.deleteFavourite(this.CourseDetails.id).subscribe((res: any) => {
+        // this.store.dispatch(loadFavoriteCourses());
+        // this.showInfo();
+      });
+    }
   }
 }

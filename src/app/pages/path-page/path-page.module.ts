@@ -5,6 +5,8 @@ import { PathCourseCardComponent } from '../../shared/cards/path-course-card/pat
 import { PathInfoComponent } from './path-info/path-info.component';
 import { PathPageWrapperComponent } from './path-page-wrapper/path-page-wrapper.component';
 import { PathPageComponent } from './path-page.component';
+import { PathPageRoutingModule } from './path-page-routing.module';
+import { ShimmerModule } from 'src/app/shimmer/shimmer.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,7 @@ import { PathPageComponent } from './path-page.component';
     PathPageComponent,
     PathPageWrapperComponent,
   ],
-  imports: [CommonModule, CardsModule],
+  imports: [CommonModule, CardsModule,PathPageRoutingModule,ShimmerModule],
   exports: [PathCourseCardComponent],
 })
 export class PathPageModule {}

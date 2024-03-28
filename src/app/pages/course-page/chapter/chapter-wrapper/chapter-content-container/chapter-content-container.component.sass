@@ -8,6 +8,9 @@
   font-size: 1.2rem
   border-bottom: 1px solid #f2f2f2
 
+  @media screen and (max-width: 768px)
+    font-size: .9rem !important
+
   .icon
     padding-top: 8px
     padding-left: 24px
@@ -17,6 +20,7 @@
 
 .leftBar
   display: flex
+  cursor: pointer
 
 .completeBtn
   padding-right: 1rem
@@ -45,15 +49,15 @@
 
 .popup-content
   position: relative
-  background-color: white
+  background-color: #F9F5FF
   padding: 20px
-  border-radius: 8px
+  border-radius: 10px
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2)
 
   button
     position: absolute
-    top: 10px
-    right: 30px
+    top: 8px
+    right: 50px
     cursor: pointer
 
 .close-button
@@ -62,7 +66,26 @@
   top: 5px
   right: 10px
   cursor: pointer
+  margin-left: 10px
 
 iframe
-  width: 700px
-  height: 400px
+  width: 88vw
+  height: 85vh
+  background-color: white
+
+.rightBar
+  margin-right: 24px
+  display: flex
+  justify-content: space-between
+  gap: 100px
+
+  button
+    border: 1px solid #5624d0
+    background-color: white
+    cursor: pointer
+    width: 200px
+    font-weight: 300
+    height: 2.2rem
+    font-size: 1rem
+    border-radius: 6px
+    color: #5624d0

@@ -1,0 +1,55 @@
+<div class="all-section-container">
+    <div class="content-container">
+      <div class="page-header">
+        {{ prefix | titlecase }} {{ heading | titlecase }}
+      </div>
+      <div *ngIf="loading" class="paths-box">
+        <app-dashboard-shimmer
+          class="shimmer"
+          [shimmerCount]="9"
+        ></app-dashboard-shimmer>
+      </div>
+      <div *ngIf="!loading" class="paths-box">
+        <ng-container *ngIf="noContent">
+          <app-no-content></app-no-content>
+        </ng-container>
+        <ng-container *ngIf="!noContent">
+          <ng-container>
+            <app-error-card
+              [title]="Title.PATHS"
+              [error]="errorCard"
+              *ngIf="error"
+            >
+            </app-error-card>
+            <span>Paths</span>
+            <div *ngFor="let item of allPathsData" class="paths-card-wrapper">
+              <app-path-card
+                [onGoingFlag]="onGoingFlag"
+                [singlePath]="item"
+              ></app-path-card>
+            </div>
+          </ng-container>
+  
+          <ng-container>
+            <app-error-card
+              [title]="Title.COURSES"
+              [error]="errorCard"
+              *ngIf="error"
+            >
+            </app-error-card>
+            <ng-container *ngIf="!error">
+                <span>Courses</span>
+              <div *ngFor="let item of allCoursesData" class="paths-card-wrapper">
+                <app-course-card
+                  [onGoingFlag]="onGoingFlag"
+                  [singleCourse]="item"
+                  [isRed]="item.isFavourite"
+                ></app-course-card>
+              </div>
+            </ng-container>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  

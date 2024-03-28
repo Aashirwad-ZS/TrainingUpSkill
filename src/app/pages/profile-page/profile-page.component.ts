@@ -1,4 +1,10 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { MiscellaneousService } from 'src/app/services/miscellaneous.service';
+import { loadEnrolledBatches } from 'src/app/state/action/batch.actions';
+import { loadEnrolledCourses } from 'src/app/state/action/course.actions';
+import { loadEnrolledPaths } from 'src/app/state/action/path.actions';
+import { selectEnrolledBatches } from 'src/app/state/selector/batch.selector';
 
 @Component({
   selector: 'app-profile-page',
@@ -7,16 +13,18 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 })
 export class ProfilePageComponent implements OnInit, OnDestroy {
   heading: string = 'Profile';
-  constructor() {}
+  constructor(private store: Store, private mis: MiscellaneousService) {}
 
   ngOnInit(): void {
     localStorage.setItem('profile', 'true');
-    console.log('init');
+    this.store.dispatch(loadEnrolledCourses());
+    this.store.dispatch(loadEnrolledBatches());
+    this.store.dispatch(loadEnrolledPaths());
+    // this.mis.getBatchesData();
   }
   @HostListener('window:beforeunload')
   ngOnDestroy(): void {
     localStorage.setItem('profile', 'false');
-    console.log('destroyed');
   }
   headingsTitle: string[] = ['batches', 'paths', 'courses'];
 }

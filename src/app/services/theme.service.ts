@@ -13,8 +13,8 @@ export class ThemeService {
   }
 
   setDarkMode(isDarkMode: boolean) {
-    // this.darkMode=isDarkMode;
     this.darkModeSubject.next(isDarkMode);
+    localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
 
     if (isDarkMode) {
       document.body.classList.add('dark-theme');
@@ -24,20 +24,6 @@ export class ThemeService {
       document.body.classList.add('light-theme');
     }
   }
-
-  /**
-   * Function that toggles the current mode
-   * Exposed publicly
-   */
-  // toggleMode() {
-  //   document.body.classList.toggle(Mode.LIGHT);
-  //   document.body.classList.toggle(Mode.DARK);
-  //   if (this.currentMode === Mode.LIGHT) {
-  //     this.updateCurrentMode(Mode.DARK);
-  //   } else {
-  //     this.updateCurrentMode(Mode.LIGHT);
-  //   }
-  // }
 
   constructor() {}
 }

@@ -1,18 +1,31 @@
 .pathCard
   display: flex
   position: relative
+  cursor: pointer
   width: 25vw
   height: 112px
   border-radius: 20px
   background-color: var(--page-content-background-color)
   box-sizing: border-box
   align-items: center
+
+  @media screen and (max-width: 768px)
+    width: 65vw
+    flex-direction: column
+    padding: 10px
+    height: 200px
+
   img
     border-radius: 0.5rem
     width: 35%
     height: 80%
     margin-left: 0.7rem
     box-sizing: border-box
+
+    @media screen and (max-width: 768px)
+      width: 100%
+      margin-left: 0
+      height: 90px
 
   .cardContent
     padding: 3%
@@ -24,17 +37,33 @@
     gap: 0.4rem
     color: var(--primary-font-color)
 
+    @media screen and (max-width: 768px)
+      width: 100%
+
   .title
     display: -webkit-box
-    -webkit-line-clamp: 2
+    -webkit-line-clamp: 1
     -webkit-box-orient: vertical
     overflow: hidden
     box-sizing: border-box
+
+    @media screen and (max-width: 768px)
+      width: 100%
 
   .courseStateDate
     font-size: 0.6rem
 
 .progressCircle
+  height: 40px
+  width: 40px
   position: absolute
-  right: 0.9rem
-  bottom: 0.9rem
+  right: 5px
+  bottom: 5px
+
+.circle
+  ::ng-deep .progress
+    width: 37px !important
+    height: 37px !important
+
+  ::ng-deep #progress-value
+    font-size: 11.5px !important

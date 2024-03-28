@@ -1,6 +1,9 @@
 import { ActivatedRoute } from '@angular/router';
-import { CourseDataService } from '../../../services/course-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { loadCourseAboutInfo } from 'src/app/state/action/course.actions';
+import { selectCourseAboutInfo } from 'src/app/state/selector/course.selector';
+import { Course } from 'src/app/models/Course';
 
 @Component({
   selector: 'app-course-about-section',
@@ -8,26 +11,41 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./course-about-section.component.sass'],
 })
 export class CourseAboutSectionComponent implements OnInit {
+  courseInfo: Course = {
+    id: 0,
+    name: '',
+    courseName: '',
+    imageUrl: '',
+    isAccessible: false,
+    description: '',
+    about: '',
+    createdBy: {
+      id: 0,
+      name: '',
+      imageUrl: '',
+      email: '',
+    },
+    createdAt: '',
+    isFavourite: false,
+    progress: 0,
+    enrolledAt: '',
+    completedAt: '',
+    noOfChapters: 0,
+    updatedAt: '',
+    level: 0,
+  };
   id: string = '';
-  aboutObject: any = {};
-  about: String = '';
   aboutArray: string[] = [];
 
-  constructor(
-    private courseDataService: CourseDataService,
-    private activatedRoute: ActivatedRoute
-  ) {
+  constructor(private store: Store, private activatedRoute: ActivatedRoute) {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.courseDataService.getCourseAboutInfo(this.id).subscribe((data) => {
-      this.aboutObject = data.valueOf();
-      this.about = this.aboutObject.data.about;
-      this.aboutArray = this.about.split('\n');
-      console.log(typeof this.about);
-      // console.log(this.about);
-    });
-
-    console.log(this.aboutArray);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.store.dispatch(loadCourseAboutInfo({ courseId: this.id }));
+    this.store.select(selectCourseAboutInfo).subscribe((data) => {
+      this.courseInfo = data;
+      this.aboutArray = this.courseInfo.about.split('\n');
+    });
+  }
 }

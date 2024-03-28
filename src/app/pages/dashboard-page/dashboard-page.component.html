@@ -1,13 +1,9 @@
+<p-toast></p-toast>
 <div class="mainContainer">
   <app-dashboard-header></app-dashboard-header>
-  <ng-container *ngIf="loading">
-    <div class="loading-container">
-      <app-loading-card></app-loading-card>
-    </div>
-  </ng-container>
-  <ng-container *ngIf="!loading">
-    <ng-container *ngFor="let item of headingsTitle">
-      <app-card-container [title]="item"></app-card-container>
-    </ng-container>
+
+  <ng-container *ngFor="let item of headingsTitle">
+    <app-card-container [title]="item"></app-card-container>
+    <!-- <app-error-card *ngIf="error[i]"></app-error-card> -->
   </ng-container>
 </div>

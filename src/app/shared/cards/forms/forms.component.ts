@@ -16,7 +16,6 @@ export class FormsComponent implements OnInit {
 
   title = 'Angular Template Driven Form';
   loginUser(item: any) {
-    console.log(item);
   }
 
   constructor() {}

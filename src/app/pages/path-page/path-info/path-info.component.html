@@ -7,17 +7,19 @@
           {{ pathData.name }}
         </div>
         <div class="count">{{ pathData.noOfCourses }} courses</div>
-        <div>
-          Date of Creation : {{ pathData.createdAt | date: "dd MMM yyyy" }}
+        <div class="pathdashboard-date">
+          Date of Creation : {{ pathData.createdAt | date : "dd MMM yyyy" }}
         </div>
-        <div>Created By : {{ pathData.createdBy.name }}</div>
+        <div class="pathdashboard-date">
+          Created By : {{ pathData.createdBy.name }}
+        </div>
       </div>
     </div>
     <div class="path-about">
       <div class="sub-heading">About</div>
       <div>
         <div class="course-description-line">
-          <div *ngFor="let string of about">
+          <div *ngFor="let string of about" class="pathdashboard-text">
             {{ string }}
             <br />
           </div>

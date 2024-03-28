@@ -1,0 +1,15 @@
+<div class="page-wrapper">
+  <div class="page-content">
+    <img src="assets/no-data.svg" class="nodata-image" />
+    <div *ngIf="!chapterFlag" class="PageHeader">404 | Page Not Found</div>
+    <div *ngIf="chapterFlag" class="PageHeader">Invitations</div>
+    <div class="error-message">
+      <div *ngIf="!chapterFlag">Are you lost?</div>
+      <div *ngIf="chapterFlag">No Invitations Found. Sorry !!</div>
+
+      <a *ngIf="!chapterFlag" href="/dashboard"
+        ><div class="home-link">Go to Home Page</div></a
+      >
+    </div>
+  </div>
+</div>

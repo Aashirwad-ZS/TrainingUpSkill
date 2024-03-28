@@ -12,7 +12,7 @@
       </div>
     </div>
     <div *ngIf="courseTitles.progress == 100" class="progressBar">
-      <i class="fa-regular fa-circle-check fa-xl"></i>
+      <img src="assets/Completed.svg" />
     </div>
   </div>
   <ng-container *ngIf="!isClicked">
@@ -27,6 +27,12 @@
         [allChapters]="courseTitles.resourceResponses"
       >
       </app-chapter-content-container>
+      <ng-container *ngIf="courseTitles.quizResponses.length != 0">
+        <app-chapter-content-container
+          [allChapters]="courseTitles.quizResponses"
+          [quizFlag]="true"
+        ></app-chapter-content-container>
+      </ng-container>
     </div>
   </ng-container>
 </div>

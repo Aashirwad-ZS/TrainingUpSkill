@@ -3,6 +3,9 @@
     height: 100vh
     width: 100vw
     background: linear-gradient(90deg, #5624d0, #8b24bb)
+    @media screen and (max-width: 768px)
+        flex-direction: column
+        height: fit-content
 
 .heading
     color: white
@@ -20,6 +23,10 @@
     align-items: center
     width: 50vw
 
+    @media screen and (max-width: 768px)
+        width: 100vw
+    
+
 .login-box
     height: 70vh
     width: 40vw
@@ -29,6 +36,11 @@
     align-items: center
     justify-content: center
     flex-direction: column
+
+    @media screen and (max-width: 768px)
+        width: 100vw
+        border-radius: 0
+        height: 30vh
 
 .welcome
     font-size: 1.8em
@@ -50,6 +62,9 @@
     height: 60vh
     width: 60vmin
     margin: auto
+
+    @media screen and (max-width: 768px)
+        width: 100vmin
 
 #google-btn
     height: 40px

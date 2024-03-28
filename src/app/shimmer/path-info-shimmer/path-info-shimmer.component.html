@@ -1,0 +1,31 @@
+<div class="path-info-shimmer">
+    <div class="shimmer-container">
+        <div class="shimmer-pathcard">
+            <app-shimmer-loading shape="rect" width="314px" height="152px"></app-shimmer-loading>
+        </div>
+        <div class="shimmer-lines">
+            <app-shimmer-loading height="20px" width="100%"></app-shimmer-loading>
+            <ng-container *ngFor="let width of [ 60,60, 20,45,35]">
+                <app-shimmer-loading [width]="width + '%'" height="10px  "></app-shimmer-loading>
+            </ng-container>
+        </div>
+        <div class="progress-shimmer">
+            <app-shimmer-loading shape="circle" height="50px" width="50px"></app-shimmer-loading>
+        </div>
+    </div>
+
+    <div class="path-about">
+        <div class="sub-heading">
+            <app-shimmer-loading height="10px" width="150px"></app-shimmer-loading>
+        </div>
+        <div>
+            <div class="course-description-line">
+
+                <ng-container *ngFor="let width of [ 80,80]">
+                    <app-shimmer-loading [width]="width + '%'" height="10px  "></app-shimmer-loading>
+                </ng-container>
+
+            </div>
+        </div>
+
+    </div>

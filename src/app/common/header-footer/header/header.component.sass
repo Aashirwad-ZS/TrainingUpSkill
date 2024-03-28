@@ -1,203 +1,233 @@
 .navbar
-    background-color: var(--header-background-color)
-    margin: 0
-    padding: 5px 0
-    height: 70px
-    width: 100vw
-    display: flex
-    justify-content: space-around
+  background-color: var(--header-background-color)
+  margin: 0
+  padding: 5px 0
+  height: 70px
+  width: 100vw
+  display: flex
+  padding: 0px 7%
+  justify-content: space-between
+  @media screen and (min-width:768px)
+    padding: 0px 7%
 
 .header-links
-    display: flex
-    align-items: center
-    justify-content: space-around
-    gap:10px
-    height: 100%
+  display: flex
+  align-items: center
+  justify-content: space-around
+  gap: 10px
+  height: 100%
 
 button
-    background-color: var(--header-icons-background-color)
-    border-radius: 7px
-    border: none
-    height: 50px
-    width: 50px
+  background-color: var(--header-icons-background-color)
+  border-radius: 7px
+  border: none
+  height: 50px
+  width: 50px
 
 .fa-heart
-    color: var(--primary-font-color)
+  color: var(--primary-font-color)
 
 .skill-up-logo
-    width: fit-content
-    height: 75%
+  width: fit-content
+  height: 75%
 
 .profile-image
-    height: 3rem
-    width: 3rem
-    border-radius: 10px
-    aspect-ratio: 1
-    max-height: 80px
-    max-width: 80px
-
+  height: 3rem
+  width: 3rem
+  border-radius: 10px
+  aspect-ratio: 1
+  max-height: 80px
+  max-width: 80px
 
 .search-bar
-    position: relative
-    height: 80%
+  display: flex
+  border-radius: 10px
+  background-color: var(--header-icons-background-color)
 
 .search-box
-    width: 40vw
-    border-radius:7px
-    border: none
-    background-color: var(--header-icons-background-color)
-    height: 50px
-    padding-left: 20px
+  width: 30vw
+  border: none
+  border-radius: 10px
+  background-color: var(--header-icons-background-color)
+  height: 50px
+  padding-left: 20px
+  font-size: 1.2rem
+  outline: none
+
+  @media screen and (max-width: 858px)
+    width: 15vw
 
 .search-icon
-    position: absolute
-    top:12px
-    right:10px
+  padding-right: 15px
 
 select
-    border: none
-    height: 80%
-    border-radius: 10px
+  border: none
+  height: 80%
+  border-radius: 10px
 
 #organization
-    background-color: var(--page-content-background-color)
-    
+  background-color: var(--page-content-background-color)
+
 .bottom-section
-    display: flex
-    flex-direction: column
-    height: 70%
+  display: flex
+  flex-direction: column
+  height: 70%
 
 .profile-section
-    display: flex
-    border-bottom: 1px solid var(--page-content-background-color)
-    display: flex
-    padding: 24px 
-    color: var(--primary-font-color)
+  display: flex
+  border-bottom: 1px solid var(--page-content-background-color)
+  display: flex
+  padding: 24px
+  color: var(--primary-font-color)
 
 .left-wrapper
-    height: 100%
-    width: 25%
+  height: 100%
+  width: 25%
 
 .right-wrapper
-    display: flex
-    flex-direction: column
-    height: 100%
-    padding-left: 10px
-    width: 75%
+  display: flex
+  flex-direction: column
+  height: 100%
+  padding-left: 10px
+  width: 75%
 
 .user-name
-    font-size: 1.5rem
-    font-weight: 500
-    line-height: 2.5rem
-    margin-bottom: 4px
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
-    width: 100%
+  font-size: 1.5rem
+  font-weight: 500
+  line-height: 2.5rem
+  margin-bottom: 4px
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  width: 100%
 
 .user-email
-    overflow: hidden
-    text-overflow: ellipsis
-    white-space: nowrap
-    width: 100%
-    font-weight:400
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+  width: 100%
+  font-weight: 400
 
 .user-image
-    aspect-ratio: 1
-    border-radius: 10px
-    height: 100%
-    max-height: 80px
-    max-width: 80px
+  aspect-ratio: 1/1
+  border-radius: 10px
+  height: 100%
+  max-height: 80px
+  max-width: 80px
 
 .user-wrapper
-    font-family: Poppins,sans-serif
-    cursor: pointer
+  font-family: Poppins,sans-serif
+  cursor: pointer
 
 .dropdown-actions
-    align-items: center
-    color: inherit
-    cursor: pointer
-    display: flex
-    height: 100%
-    max-height: 5rem
-    padding:16px 0px 10px 20px
-    text-decoration: none
-    width: 100%
+  align-items: center
+  color: inherit
+  cursor: pointer
+  display: flex
+  height: 100%
+  max-height: 5rem
+  padding: 16px 0px 10px 20px
+  text-decoration: none
+  width: 100%
 
 .dropdown
-    border-radius: 12px
-    position: absolute
-    right: 4%
-    z-index: 1
-    width: 375px
-    background-color: var(--page-content-background-color)
+  border-radius: 12px
+  position: absolute
+  right: 4%
+  z-index: 1
+  width: 375px
+  background-color: var(--page-content-background-color)
 
 .logout
-    color:#f75a5b
+  color: #f75a5b
 
-        
 .org-image
-    width:100px
-    height:40px
-    border-radius:3px
+  width: 100px
+  height: 40px
+  border-radius: 3px
+
+  @media screen and (max-width: 768px)
+    width: 50px
+    
+  
 
 .dropdown-icon
-    display: flex
-    align-items: center
-    padding-left: 3px
+  display: flex
+  align-items: center
+  padding-left: 3px
 .logo-wrapper
-    display: flex
-    
+  display: flex
+
 .org-wrapper
-    background-color: var(--page-content-background-color)
-    padding: 4px 6px
-    border-radius:6px
-    cursor: pointer
+  background-color: var(--page-content-background-color)
+  padding: 4px 6px
+  border-radius: 6px
+  cursor: pointer
 
 .current-org
-    padding: 24px
-    background-color: var(--page-content-background-color)
+  padding: 24px
+  background-color: var(--page-content-background-color)
 
 .demo-wrapper
-    background-color: var(--page-content-background-color)
-    border-radius:12px
+  background-color: var(--page-content-background-color)
+  border-radius: 12px
 
 .section
-    border-bottom: 1px solid var(--page-content-background-color)
-    padding: 6px 0
+  border-bottom: 1px solid var(--page-content-background-color)
+  padding: 6px 0
 
 .section-head
-    font-weight:500
-    padding:0 24px
+  font-weight: 500
+  padding: 0 24px
 
 .organization-card
-    align-items: center
-    color: inherit
-    display: flex
-    padding: 12px
-    text-decoration: none
-    width: 100%
+  align-items: center
+  color: inherit
+  display: flex
+  padding: 12px
+  text-decoration: none
+  width: 100%
 
 .organization-image
-    border: 1px solid rgba(0, 0, 0, .15)
-    border-radius: 0.6rem
-    height: 2.5rem
-    margin-right: 1rem
-    min-width: 30%
-    opacity: .8
-    width: 30%
+  border: 1px solid rgba(0, 0, 0, .15)
+  border-radius: 0.6rem
+  height: 2.5rem
+  margin-right: 1rem
+  min-width: 30%
+  opacity: .8
+  width: 30%
 
 .user-organization
-    right:11%
+  right: 11%
 
 .skill
-    font-size: 1.5rem
-    font-weight: 600
-    color: var(--primary-font-color)
-.up
-    display: inline-block
-    font-size: 1.5rem
-    color: var(--primary-font-link-color)
-    font-weight: 600
-    padding-top: 8px
+  font-size: 1.5rem
+  font-weight: 600
+  color: var(--primary-font-color)
 
+  @media screen and (max-width: 768px)
+    margin-top: 6px
+    
+  
+.up
+  display: inline-block
+  font-size: 1.5rem
+  color: var(--primary-font-link-color)
+  font-weight: 600
+  padding-top: 8px
+
+  @media screen and (max-width: 768px)
+    margin-top: 6px
+// .skill
+//   font-size: 1.5rem
+//   font-weight: 600
+//   color: var(--primary-font-color)
+// .up
+//   display: inline-block
+//   font-size: 1.5rem
+//   color: var(--primary-font-link-color)
+//   font-weight: 600
+//   padding-top: 8px
+
+.logo
+  padding-top: 20px

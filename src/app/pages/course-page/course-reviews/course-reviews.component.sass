@@ -32,14 +32,13 @@
   opacity: 0.5
   font-size: 14px
   position: relative
-  top: -10px
 
 .progress-bar
   background-color: white
   border-radius: 6px
   width: calc(100% - 200px)
 
-.progress
+.progress-lines
   background: #ffc850
   border-radius: 6px
   height: 11px
@@ -68,6 +67,9 @@
     font-size: 17px
     opacity: 0.5
 
+    @media screen and (max-width: 768px)
+      font-size: 14px
+
     &.active
       opacity: 1
       border-bottom: 4px solid #5624d0
@@ -87,6 +89,9 @@
   font-size: 1rem
   border-radius: 6px
   color: #5624d0
+
+  @media screen and (max-width: 768px)
+    width: 130px
 
 .add-review-and-rating-container
   margin-top: 30px
@@ -137,3 +142,37 @@
       background-color: #f8f5ff
       border: 1px solid #f75a5b
       color: #f75a5b
+
+.review-component-container
+  margin-top: 20px
+  background-color: #fff
+  border-radius: 12px
+  display: flex
+  flex-direction: column
+  gap: 24px
+  max-height: 800px
+  overflow-y: auto
+  padding: 24px
+
+.review
+  display: flex
+
+.posted-by-img
+  border-radius: 50%
+  height: 2.5rem
+  width: 2.5rem
+
+.rating-time-container
+  display: flex
+.time-ago
+  font-size: .86rem
+  margin-left: 6px
+  color: gray
+  font-weight: 300
+
+.review-detail
+  margin-left: 10px
+
+.review-content
+  font-size: .9rem
+  font-weight: 300

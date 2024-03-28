@@ -1,27 +1,58 @@
+<p-toast></p-toast>
 <div class="card">
-  <img [src]="singleCourse.imageUrl" alt="" class="image" />
+  <!-- <a [routerLink]="['/', RouterLinks.COURSES, singleCourse.id]"> -->
+  <img
+    *ngIf="onGoingFlag || isProfile"
+    [routerLink]="['/', RouterLinks.COURSES, singleCourse.courseId]"
+    [src]="singleCourse.imageUrl"
+    alt=""
+    class="image"
+  />
+  <img
+    *ngIf="!onGoingFlag && !isProfile"
+    [routerLink]="['/', RouterLinks.COURSES, singleCourse.id]"
+    [src]="singleCourse.imageUrl"
+    alt=""
+    class="image"
+  />
+  <!-- </a> -->
+
   <div class="content-div">
     <div class="header">
       <div class="course-name">
         {{ singleCourse.name }}{{ singleCourse.courseName }}
       </div>
       <div *ngIf="isProfile" class="progressCircle">
-        <i class="fa-regular fa-circle"></i>
+        <app-circular-progress-bar
+          [progress]="singleCourse.progress"
+        ></app-circular-progress-bar>
       </div>
     </div>
     <div *ngIf="isProfile" class="footer">
-      <div class="course-state-date">Start Date: 29 Feb 2024</div>
-      <div class="course-state-date">End Date: 29 Feb 2025</div>
+      <div class="course-date">
+        Start Date: {{ singleCourse.enrolledAt | date : "dd MMM yyyy" }}
+      </div>
+      <div class="course-date">End Date: In Progress</div>
     </div>
     <div *ngIf="!isProfile" class="author">
       By {{ singleCourse.createdBy.name }}
     </div>
     <div *ngIf="!isProfile" class="fav-icon">
       <button id="btn1">
-          <i class="btn" [style.color]="isButtonRed ? 'red' : 'grey'" 
-          (click)="toggleColor()" class="fa fa-heart"></i>
-          
-        </button>
+        <img
+          class="btn"
+          *ngIf="isDarkMode; else lightIcon"
+          [src]="isRed ? 'assets/dark/Unlike.svg' : 'assets/dark/Like.svg'"
+        />
+
+        <ng-template #lightIcon>
+          <img
+            class="btn"
+            (click)="toggleColor()"
+            [src]="isRed ? 'assets/light/Unlike.svg' : 'assets/light/Like.svg'"
+          />
+        </ng-template>
+      </button>
     </div>
   </div>
 </div>

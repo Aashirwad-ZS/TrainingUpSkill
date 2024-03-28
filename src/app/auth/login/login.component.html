@@ -1,3 +1,4 @@
+<!-- <p-toast></p-toast> -->
 <div class="login">
   <div class="login-left">
     <h2 class="heading">SkillUp</h2>
@@ -6,13 +7,24 @@
   <div class="login-right">
     <div class="login-box">
       <h1 class="welcome">Welcome to SkillUp</h1>
-      <div id="g_id_onload" data-client_id="229643020353-ehlan939tfptkl4gv84773v7cmvkvc8e.apps.googleusercontent.com"
-        data-context="signin" data-ux_mode="popup" data-itp_support="true" data-callback="handleCredentialResponse">
-      </div>
+      <div
+        id="g_id_onload"
+        [attr.data-client_id]="googleClientId"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-itp_support="true"
+        data-callback="handleCredentialResponse"
+      ></div>
 
-      <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="filled_blue"
-        data-text="signin_with" data-size="large" data-logo_alignment="left">
-      </div>
+      <div
+        class="g_id_signin"
+        data-type="standard"
+        data-shape="rectangular"
+        data-theme="filled_blue"
+        data-text="signin_with"
+        data-size="large"
+        data-logo_alignment="left"
+      ></div>
     </div>
   </div>
 </div>

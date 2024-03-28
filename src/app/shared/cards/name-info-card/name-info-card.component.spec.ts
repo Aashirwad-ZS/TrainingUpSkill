@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NameInfoCardComponent } from '../info-card/info-card.component';
+import { NameInfoCardComponent } from '../name-info-card/name-info-card.component';
 
 describe('NameInfoCardComponent', () => {
   let component: NameInfoCardComponent;

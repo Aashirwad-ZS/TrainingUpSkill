@@ -1,6 +1,7 @@
-import { ActivatedRoute } from '@angular/router';
-import { PathDataService } from '../../../services/path-data.service';
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { MiscellaneousService } from 'src/app/services/miscellaneous.service';
+import { selectPathById } from 'src/app/state/selector/path.selector';
 @Component({
   selector: 'app-path-page-wrapper',
   templateUrl: './path-page-wrapper.component.html',
@@ -8,20 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PathPageWrapperComponent implements OnInit {
   id: string = '';
-  Course: any = {};
-  courseData: any[] = [];
-  constructor(
-    private pathDataService: PathDataService,
-    private route: ActivatedRoute,
-  ) {
-    this.id = this.route.snapshot.params['id'];
-    this.Course = this.pathDataService
-      .getPathData(this.id)
-      .subscribe((data) => {
-        this.Course = data.valueOf();
-        this.courseData = this.Course.data.courses;
-        console.log(this.courseData);
-      });
+  courseData: any = {};
+  constructor(private store: Store,private mis:MiscellaneousService) {
+    this.store.select(selectPathById).subscribe((path) => {
+      this.courseData = path.courses;
+    });
   }
 
   ngOnInit(): void {}

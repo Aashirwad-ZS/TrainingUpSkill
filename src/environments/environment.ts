@@ -4,6 +4,8 @@
 
 export const environment = {
   production: false,
+  googleClientId:
+    '140811640417-9c3s4kvohopckfv73no167o2inqn3do7.apps.googleusercontent.com',
 };
 
 /*

@@ -11,69 +11,32 @@
         <div class="row author-details">
           By {{ CourseDetails.createdBy.name
           }}<span class="created-at">
-            {{ CourseDetails.createdAt | date: "dd MMM yyyy" }}</span
-          >
+            {{ CourseDetails.createdAt | date : "dd MMM yyyy" }}</span>
         </div>
         <div class="row level">Level : {{ CourseDetails.level }}</div>
         <div class="row meta-data">
-          <span class="chapters"
-            >{{ CourseDetails.noOfChapters }} Chapters</span
-          >
+          <span class="chapters">{{ CourseDetails.noOfChapters }} Chapters</span>
         </div>
         <div class="row last-updated">
-          Last Updated - {{ CourseDetails.updatedAt | date: "dd MMM yyyy" }}
+          Last Updated - {{ CourseDetails.updatedAt | date : "dd MMM yyyy" }}
         </div>
       </div>
-      <div class="buttons" >
-        <button id="btn1" class="btn" 
-                style="display: flex; background: transparent; border: none; outline: none; font-size: 35px; "
-                 >
-          <i style="margin-right: 30px;" [style.color]="isButtonRed ? 'red' : 'white'" 
-          (click)="toggleColor()" class="fa fa-heart"></i>
-          <i class="fa-regular fa-circle"></i>
+      <div class="buttons">
+        <button id="btn1" class="btn" style="
+            display: flex;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 35px;
+          ">
+
+          <img class="like-button" (click)="toggleColor()"
+            [src]="isRed ? 'assets/dark/Unlike.svg' : 'assets/dark/MyFavourites.svg'" />
+
+
+          <app-circular-progress-bar class="circle" [progress]="CourseDetails.progress"></app-circular-progress-bar>
         </button>
       </div>
     </div>
-    <!-- <div class="progress-wrapper">
-      <div class="top-container">
-        <div class="like-icon-wrapper">
-          <div class="FavouriteButton">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>My Favourites</title>
-              <path
-                d="M10.975 20.45L9.65 19.225C7.58333 17.3083 5.79167 15.4792 4.275 13.7375C2.75833 11.9958 2 10.175 2 8.275C2 6.775 2.50417 5.52083 3.5125 4.5125C4.52083 3.50417 5.76667 3 7.25 3C8.1 3 8.94167 3.20417 9.775 3.6125C10.6083 4.02083 11.35 4.69167 12 5.625C12.7333 4.69167 13.4917 4.02083 14.275 3.6125C15.0583 3.20417 15.8833 3 16.75 3C18.2333 3 19.4792 3.50417 20.4875 4.5125C21.4958 5.52083 22 6.775 22 8.275C22 10.175 21.2417 11.9958 19.725 13.7375C18.2083 15.4792 16.4167 17.3083 14.35 19.225L13.025 20.45C12.7417 20.7167 12.4 20.85 12 20.85C11.6 20.85 11.2583 20.7167 10.975 20.45Z"
-                fill="#ffffff"
-              ></path>
-            </svg>
-          </div>
-        </div>
-        <div class="ProgressIndicator">
-          <div class="inner" style="background-color: rgb(255, 255, 255)"></div>
-          <div class="number">0%</div>
-          <div class="circle">
-            <div class="bar left" style="background: rgb(249, 249, 249)">
-              <div
-                id="progress-left"
-                class="progress"
-                style="transform: rotate(0deg)"
-              ></div>
-            </div>
-            <div class="bar right" style="background: rgb(249, 249, 249)">
-              <div
-                id="progress-right"
-                class="progress inactive"
-                style="transform: rotate(-180deg)"
-              ></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
   </div>
 </div>

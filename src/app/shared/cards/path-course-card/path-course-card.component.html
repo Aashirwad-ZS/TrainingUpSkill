@@ -3,7 +3,7 @@
     <div
       class="circle"
       [ngStyle]="
-        courseData.isAccessible && { 'background-color': 'rgb(86, 36, 208)' }
+        [courseData.isAccessible] && { 'background-color': 'rgb(86, 36, 208)' }
       "
     ></div>
     <div
@@ -11,7 +11,7 @@
       class="progress-line"
     ></div>
     <div
-      [ngStyle]="{ height: 100 - courseData.progress + '%' }"
+      [ngStyle]="{ height: 106 - courseData.progress + '%' }"
       class="insideLine"
     ></div>
   </div>
@@ -22,7 +22,25 @@
           <div class="courses-list">
             <div class="course-box">
               <div class="course-card">
-                <img class="course-image" [src]="courseData.imageUrl" />
+                <!-- <a [routerLink]="['/', RouterLinks.PATHS, courseData.id]"> -->
+
+                <img
+                  *ngIf="!flag"
+                  [routerLink]="['/', RouterLinks.COURSES, courseData.id]"
+                  class="course-image"
+                  [src]="courseData.imageUrl"
+                />
+                <img
+                  *ngIf="flag"
+                  [routerLink]="[
+                    '/',
+                    RouterLinks.PATH_DASHBOARD,
+                    courseData.id
+                  ]"
+                  class="course-image"
+                  [src]="courseData.imageUrl"
+                />
+                <!-- </a> -->
                 <div class="course-details">
                   <div class="course-heading">
                     {{ courseData.name }}
@@ -30,13 +48,16 @@
                   <div class="course-author">
                     By {{ courseData.createdBy.name }} |
                     {{
-                      courseData.createdAt.slice(0, 10) | date: "dd MMM yyyy"
+                      courseData.createdAt.slice(0, 10) | date : "dd MMM yyyy"
                     }}
                   </div>
-                  <div class="course-content">
+                  <div class="course-content" *ngIf="!isResponsive">
                     {{ courseData.about }}
                   </div>
                 </div>
+              </div>
+              <div class="course-content" *ngIf="isResponsive">
+                {{ courseData.about }}
               </div>
             </div>
           </div>

@@ -1,15 +1,21 @@
 <app-component-header [heading]="'Batch'"></app-component-header>
+
+
 <div class="batch-component-container">
+  <ng-container *ngIf="loading">
+    <app-page-shimmer></app-page-shimmer>
+    </ng-container>
+    <ng-container *ngIf="!loading">
+      <div class="error-card" *ngIf="error">
+      <app-error-card [error]="errorCard"></app-error-card>
+      </div>
+      <ng-container *ngIf="!error">
   <app-batch-details [batchData]="batchDetails"></app-batch-details>
   <div class="batch-path">
-    <app-path-course-card [courseData]="paths[0]"></app-path-course-card>
+    <app-path-course-card [flag]="true" [courseData]="paths"></app-path-course-card>
   </div>
-  <app-batch-info-card-container
-    [cardsData]="trainerData"
-    [heading]="'Trainers'"
-  ></app-batch-info-card-container>
-  <app-batch-info-card-container
-    [cardsData]="studentData"
-    [heading]="'Peers'"
-  ></app-batch-info-card-container>
+  <app-batch-info-card-container [cardsData]="trainerData" [heading]="'Trainers'"></app-batch-info-card-container>
+  <app-batch-info-card-container [cardsData]="studentData" [heading]="'Peers'"></app-batch-info-card-container>
+</ng-container>
+</ng-container>
 </div>

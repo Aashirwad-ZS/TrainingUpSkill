@@ -2,205 +2,85 @@
   <p>Review</p>
   <div class="rating-container">
     <div class="average-rating-container">
-      <div class="rating" style="font-size: 2rem">2.5</div>
+      <div class="rating" style="font-size: 2rem">
+        {{ rating.averageRating }}
+      </div>
       <div class="average-rating-star-container">
         <div class="stars-container">
-          <mat-icon svgIcon="star"></mat-icon>
-          <mat-icon svgIcon="star"></mat-icon>
-        </div>
-        <div class="hidden-star" style="width: 10px; overflow: hidden">
-          <mat-icon svgIcon="star"></mat-icon>
+          <ng-container *ngFor="let item of avgRatingArray">
+            <img *ngIf="item" src="assets/star-filled.svg" />
+            <div
+              *ngIf="!item"
+              class="hidden-star"
+              style="width: 10px; overflow: hidden"
+            >
+              <img src="assets/star-filled.svg" style="margin-top: 8px" />
+            </div>
+          </ng-container>
         </div>
       </div>
       <div class="sub-text">Rating</div>
     </div>
     <div class="ratings">
-      <div class="rating">
-        <div class="progress-bar">
-          <div class="progress" style="width: 0%"></div>
-        </div>
-        <div class="percent-rating">
-          <div class="stars-container stars-container-info">
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
+      <ng-container *ngFor="let star of [5, 4, 3, 2, 1]; let k = index">
+        <div class="rating">
+          <div class="progress-bar">
+            <div
+              class="progress-lines"
+              [style.width]="ratingPercentage[k] + '%'"
+            ></div>
           </div>
-          <div class="percentage-info">0%</div>
-        </div>
-      </div>
-      <div class="rating">
-        <div class="progress-bar">
-          <div class="progress" style="width: 50%"></div>
-        </div>
-        <div class="percent-rating">
-          <div class="stars-container stars-container-info">
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
+          <div class="percent-rating">
+            <div class="stars-container stars-container-info">
+              <img
+                *ngFor="let j of [].constructor(star)"
+                src="assets/star-filled.svg"
+              />
+            </div>
+            <div class="percentage-info">{{ ratingPercentage[k] }}%</div>
           </div>
-          <div class="percentage-info">50%</div>
         </div>
-      </div>
-      <div class="rating">
-        <div class="progress-bar">
-          <div class="progress" style="width: 0%"></div>
-        </div>
-        <div class="percent-rating">
-          <div class="stars-container stars-container-info">
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-          </div>
-          <div class="percentage-info">0%</div>
-        </div>
-      </div>
-      <div class="rating">
-        <div class="progress-bar">
-          <div class="progress" style="width: 0%"></div>
-        </div>
-        <div class="percent-rating">
-          <div class="stars-container stars-container-info">
-            <mat-icon svgIcon="star"></mat-icon>
-            <mat-icon svgIcon="star"></mat-icon>
-          </div>
-          <div class="percentage-info">0%</div>
-        </div>
-      </div>
-      <div class="rating">
-        <div class="progress-bar">
-          <div class="progress" style="width: 50%"></div>
-        </div>
-        <div class="percent-rating">
-          <div class="stars-container stars-container-info">
-            <mat-icon svgIcon="star"></mat-icon>
-          </div>
-          <div class="percentage-info">50%</div>
-        </div>
-      </div>
+      </ng-container>
     </div>
   </div>
   <div class="rating-review">
     <div class="rating-review-left">
-      <span class="active" style="margin-right: 15px">My Review</span>
-      <span>All Reviews</span>
+      <span
+        (click)="handleMyReviewButton()"
+        [ngClass]="{ active: isMyReviewOn }"
+        style="margin-right: 15px; cursor: pointer"
+        >My Review</span
+      >
+      <span
+        *ngIf="isAllReviewOn"
+        [ngClass]="{ active: isReviewCommentOn }"
+        (click)="handleReviewCommentButton()"
+        style="cursor: pointer"
+        >All Reviews</span
+      >
     </div>
     <div class="rating-review-right">
-      <button class="add-feedback-button">Add Review</button>
+      <button (click)="handleReviewButton()" class="add-feedback-button">
+        Add Review
+      </button>
     </div>
   </div>
-  <div class="add-review-and-rating-container">
+  <div *ngIf="isReviewOn" class="add-review-and-rating-container">
     <div class="info-heading">Ratings<span class="required">*</span></div>
     <div class="stars">
       <div>
-        <svg
-          width="20px"
-          height="19px"
-          viewBox="0 0 20 19"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          class="rating-selector"
-        >
-          <g
-            id="Web-Student"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
-          >
-            <path
-              d="M9.9348212,1.26396392 L12.8592379,5.97907346 C13.0326153,6.28077942 13.323909,6.49655947 13.6630418,6.57450285 L18.6078322,7.7109711 C18.6751136,7.7264345 18.7297578,7.76770519 18.7637158,7.8219304 C18.7807991,7.8492097 18.7926472,7.87976759 18.798235,7.91196763 L15.4007574,11.6391792 C15.1454136,11.9083193 15.0228151,12.2769774 15.0661236,12.6454352 L15.6663273,17.7518254 C15.6743863,17.8203891 15.6538914,17.8857283 15.6142409,17.9359413 C15.5944123,17.9610521 15.5697931,17.9823801 15.5415588,17.9984367 L10.5097693,15.8773555 C10.1841983,15.732943 9.81248426,15.7342701 9.48795268,15.8810035 L4.78168308,18.0088916 C4.71877848,18.0373333 4.65030081,18.0375852 4.59043889,18.0150006 C4.55983815,18.0034556 4.53148883,17.9859431 4.50728627,17.9631781 L4.9417267,12.6294672 C4.97781994,12.2679171 4.8548096,11.9085546 4.60472907,11.6449621 L1.26680954,8.12669428 C1.2192945,8.076612 1.19657756,8.01201172 1.19825996,7.94805326 C1.19910472,7.91593821 1.20610125,7.88398498 1.21919904,7.85411279 L6.33716092,6.57450483 C6.6763092,6.49656054 6.96761455,6.28076731 7.14099121,5.97904326 L9.78325872,1.38075636 C9.81765388,1.32089914 9.87305478,1.28064998 9.9348212,1.26396392 Z"
-              id="Outlined"
-              stroke="#FFC850"
-            ></path>
-          </g></svg
-        ><svg
-          width="20px"
-          height="19px"
-          viewBox="0 0 20 19"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          class="rating-selector"
-        >
-          <g
-            id="Web-Student"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
-          >
-            <path
-              d="M9.9348212,1.26396392 L12.8592379,5.97907346 C13.0326153,6.28077942 13.323909,6.49655947 13.6630418,6.57450285 L18.6078322,7.7109711 C18.6751136,7.7264345 18.7297578,7.76770519 18.7637158,7.8219304 C18.7807991,7.8492097 18.7926472,7.87976759 18.798235,7.91196763 L15.4007574,11.6391792 C15.1454136,11.9083193 15.0228151,12.2769774 15.0661236,12.6454352 L15.6663273,17.7518254 C15.6743863,17.8203891 15.6538914,17.8857283 15.6142409,17.9359413 C15.5944123,17.9610521 15.5697931,17.9823801 15.5415588,17.9984367 L10.5097693,15.8773555 C10.1841983,15.732943 9.81248426,15.7342701 9.48795268,15.8810035 L4.78168308,18.0088916 C4.71877848,18.0373333 4.65030081,18.0375852 4.59043889,18.0150006 C4.55983815,18.0034556 4.53148883,17.9859431 4.50728627,17.9631781 L4.9417267,12.6294672 C4.97781994,12.2679171 4.8548096,11.9085546 4.60472907,11.6449621 L1.26680954,8.12669428 C1.2192945,8.076612 1.19657756,8.01201172 1.19825996,7.94805326 C1.19910472,7.91593821 1.20610125,7.88398498 1.21919904,7.85411279 L6.33716092,6.57450483 C6.6763092,6.49656054 6.96761455,6.28076731 7.14099121,5.97904326 L9.78325872,1.38075636 C9.81765388,1.32089914 9.87305478,1.28064998 9.9348212,1.26396392 Z"
-              id="Outlined"
-              stroke="#FFC850"
-            ></path>
-          </g></svg
-        ><svg
-          width="20px"
-          height="19px"
-          viewBox="0 0 20 19"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          class="rating-selector"
-        >
-          <g
-            id="Web-Student"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
-          >
-            <path
-              d="M9.9348212,1.26396392 L12.8592379,5.97907346 C13.0326153,6.28077942 13.323909,6.49655947 13.6630418,6.57450285 L18.6078322,7.7109711 C18.6751136,7.7264345 18.7297578,7.76770519 18.7637158,7.8219304 C18.7807991,7.8492097 18.7926472,7.87976759 18.798235,7.91196763 L15.4007574,11.6391792 C15.1454136,11.9083193 15.0228151,12.2769774 15.0661236,12.6454352 L15.6663273,17.7518254 C15.6743863,17.8203891 15.6538914,17.8857283 15.6142409,17.9359413 C15.5944123,17.9610521 15.5697931,17.9823801 15.5415588,17.9984367 L10.5097693,15.8773555 C10.1841983,15.732943 9.81248426,15.7342701 9.48795268,15.8810035 L4.78168308,18.0088916 C4.71877848,18.0373333 4.65030081,18.0375852 4.59043889,18.0150006 C4.55983815,18.0034556 4.53148883,17.9859431 4.50728627,17.9631781 L4.9417267,12.6294672 C4.97781994,12.2679171 4.8548096,11.9085546 4.60472907,11.6449621 L1.26680954,8.12669428 C1.2192945,8.076612 1.19657756,8.01201172 1.19825996,7.94805326 C1.19910472,7.91593821 1.20610125,7.88398498 1.21919904,7.85411279 L6.33716092,6.57450483 C6.6763092,6.49656054 6.96761455,6.28076731 7.14099121,5.97904326 L9.78325872,1.38075636 C9.81765388,1.32089914 9.87305478,1.28064998 9.9348212,1.26396392 Z"
-              id="Outlined"
-              stroke="#FFC850"
-            ></path>
-          </g></svg
-        ><svg
-          width="20px"
-          height="19px"
-          viewBox="0 0 20 19"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          class="rating-selector"
-        >
-          <g
-            id="Web-Student"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
-          >
-            <path
-              d="M9.9348212,1.26396392 L12.8592379,5.97907346 C13.0326153,6.28077942 13.323909,6.49655947 13.6630418,6.57450285 L18.6078322,7.7109711 C18.6751136,7.7264345 18.7297578,7.76770519 18.7637158,7.8219304 C18.7807991,7.8492097 18.7926472,7.87976759 18.798235,7.91196763 L15.4007574,11.6391792 C15.1454136,11.9083193 15.0228151,12.2769774 15.0661236,12.6454352 L15.6663273,17.7518254 C15.6743863,17.8203891 15.6538914,17.8857283 15.6142409,17.9359413 C15.5944123,17.9610521 15.5697931,17.9823801 15.5415588,17.9984367 L10.5097693,15.8773555 C10.1841983,15.732943 9.81248426,15.7342701 9.48795268,15.8810035 L4.78168308,18.0088916 C4.71877848,18.0373333 4.65030081,18.0375852 4.59043889,18.0150006 C4.55983815,18.0034556 4.53148883,17.9859431 4.50728627,17.9631781 L4.9417267,12.6294672 C4.97781994,12.2679171 4.8548096,11.9085546 4.60472907,11.6449621 L1.26680954,8.12669428 C1.2192945,8.076612 1.19657756,8.01201172 1.19825996,7.94805326 C1.19910472,7.91593821 1.20610125,7.88398498 1.21919904,7.85411279 L6.33716092,6.57450483 C6.6763092,6.49656054 6.96761455,6.28076731 7.14099121,5.97904326 L9.78325872,1.38075636 C9.81765388,1.32089914 9.87305478,1.28064998 9.9348212,1.26396392 Z"
-              id="Outlined"
-              stroke="#FFC850"
-            ></path>
-          </g></svg
-        ><svg
-          width="20px"
-          height="19px"
-          viewBox="0 0 20 19"
-          xmlns="http://www.w3.org/2000/svg"
-          xmlns:xlink="http://www.w3.org/1999/xlink"
-          class="rating-selector"
-        >
-          <g
-            id="Web-Student"
-            stroke="none"
-            stroke-width="1"
-            fill="none"
-            fill-rule="evenodd"
-          >
-            <path
-              d="M9.9348212,1.26396392 L12.8592379,5.97907346 C13.0326153,6.28077942 13.323909,6.49655947 13.6630418,6.57450285 L18.6078322,7.7109711 C18.6751136,7.7264345 18.7297578,7.76770519 18.7637158,7.8219304 C18.7807991,7.8492097 18.7926472,7.87976759 18.798235,7.91196763 L15.4007574,11.6391792 C15.1454136,11.9083193 15.0228151,12.2769774 15.0661236,12.6454352 L15.6663273,17.7518254 C15.6743863,17.8203891 15.6538914,17.8857283 15.6142409,17.9359413 C15.5944123,17.9610521 15.5697931,17.9823801 15.5415588,17.9984367 L10.5097693,15.8773555 C10.1841983,15.732943 9.81248426,15.7342701 9.48795268,15.8810035 L4.78168308,18.0088916 C4.71877848,18.0373333 4.65030081,18.0375852 4.59043889,18.0150006 C4.55983815,18.0034556 4.53148883,17.9859431 4.50728627,17.9631781 L4.9417267,12.6294672 C4.97781994,12.2679171 4.8548096,11.9085546 4.60472907,11.6449621 L1.26680954,8.12669428 C1.2192945,8.076612 1.19657756,8.01201172 1.19825996,7.94805326 C1.19910472,7.91593821 1.20610125,7.88398498 1.21919904,7.85411279 L6.33716092,6.57450483 C6.6763092,6.49656054 6.96761455,6.28076731 7.14099121,5.97904326 L9.78325872,1.38075636 C9.81765388,1.32089914 9.87305478,1.28064998 9.9348212,1.26396392 Z"
-              id="Outlined"
-              stroke="#FFC850"
-            ></path>
-          </g>
-        </svg>
+        <ng-container *ngFor="let i of [].constructor(6); let index = index">
+          <img
+            *ngIf="index < ratingClicked"
+            (click)="handleReviewStarClick(index)"
+            src="assets/star-filled.svg"
+          />
+          <img
+            *ngIf="index > ratingClicked"
+            (click)="handleReviewStarClick(index)"
+            src="assets/star-empty.svg"
+          />
+        </ng-container>
       </div>
     </div>
     <div class="info-heading">Comments</div>
@@ -215,8 +95,40 @@
       ></textarea>
     </div>
     <div class="buttons">
-      <button class="cancel-button" id="cancel">Cancel</button
-      ><button class="update-button" id="submit">Submit</button>
+      <button
+        (click)="handleCancelReviewButton()"
+        class="cancel-button"
+        id="cancel"
+      >
+        Cancel</button
+      ><button type="submit" class="update-button" id="submit">Submit</button>
     </div>
+  </div>
+
+  <div *ngIf="isReviewCommentOn" class="review-component-container">
+    <ng-container *ngFor="let item of courseReview">
+      <div class="review">
+        <img [src]="item.postedBy.imageUrl" class="posted-by-img" />
+        <div class="review-detail">
+          <div class="posted-by-name">{{ item.postedBy.name }}</div>
+          <div class="rating-time-container">
+            <div class="stars-container">
+              <ng-container *ngFor="let st of [].constructor(item.rating)">
+                <img
+                  src="assets/star-filled.svg"
+                  style="width: 13px; margin-top: -4px"
+                />
+              </ng-container>
+            </div>
+            <span class="time-ago">
+              {{ item.postedAt | date : "dd MM yyyy" }}
+            </span>
+          </div>
+          <div class="review-content">
+            {{ item.feedback }}
+          </div>
+        </div>
+      </div>
+    </ng-container>
   </div>
 </div>

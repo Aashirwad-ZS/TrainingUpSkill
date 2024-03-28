@@ -1,37 +1,48 @@
-import { CourseDataService } from './../../services/course-data.service';
-import { BatchDataService } from 'src/app/services/batch-data.service';
 import { Component, OnInit } from '@angular/core';
-import { PathDataService } from 'src/app/services/path-data.service';
-import { combineLatest } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { PrimeNGConfig } from 'primeng/api';
+import { MessageService } from 'primeng/api';
+import { ERROR, HEADINGS_TITLE } from 'src/app/constants/headingsTitle';
+import { loadAllBatches } from 'src/app/state/action/batch.actions';
+import { loadAllCourses, loadEnrolledCourses } from 'src/app/state/action/course.actions';
+import { loadAllPaths } from 'src/app/state/action/path.actions';
 @Component({
   selector: 'app-dashboard-page',
   templateUrl: './dashboard-page.component.html',
   styleUrls: ['./dashboard-page.component.sass'],
+  providers: [MessageService],
 })
 export class DashboardPageComponent implements OnInit {
   constructor(
-    private pathDataService: PathDataService,
-    private batchDataService: BatchDataService,
-    private courseDataService: CourseDataService
-  ) {}
+    private primengConfig: PrimeNGConfig,
+    private messageService: MessageService,
+    private store: Store
+  ) {
+    this.showSuccess();
+  }
   loading: boolean = true;
-  headingsTitle: string[] = ['batches', 'paths', 'courses'];
+  headingsTitle = HEADINGS_TITLE;
+  error = ERROR;
 
   ngOnInit(): void {
-    combineLatest([
-      this.pathDataService.allPathsData$,
-      this.batchDataService.allBatches$,
-      this.courseDataService.allCourses$,
-    ]).subscribe(([ pathsdata , batch, course]) => {
-      if (typeof pathsdata === 'object' && Object.keys(pathsdata).length > 0 &&
-      typeof batch === 'object' && Object.keys(batch).length > 0 &&
-      typeof course === 'object' && Object.keys(course).length > 0) {
-        // Handle the combined results here
-        this.loading = false;
-      }
+    this.store.dispatch(loadAllCourses());
+    this.store.dispatch(loadEnrolledCourses());
+    this.store.dispatch(loadAllBatches());
+    this.store.dispatch(loadAllPaths());
+  }
+  showError(data: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: data,
     });
-    this.pathDataService.getPaths();
-    this.batchDataService.getBatchesDetails();
-    this.courseDataService.getCoursesData();
+  }
+
+  showSuccess() {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Logged In',
+      detail: 'Loggin Successful',
+    });
   }
 }

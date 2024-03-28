@@ -1,6 +1,6 @@
 .bannerWrapper
   background-image: linear-gradient(90deg, #8f4aea, #5624d0)
-  width: 100%
+  width: 100vw
   padding: 30px 7%
   box-sizing: border-box
   color: white
@@ -14,6 +14,11 @@
   display: flex
   width: 100%
 
+  @media screen and (max-width: 768px)
+    flex-wrap: wrap
+    
+  
+
 .left
   aspect-ratio: 2
   background: rgba(0, 0, 0, .25)
@@ -21,12 +26,21 @@
   height: 100%
   max-width: 28%
 
-  img
-    border: 1px solid rgba(0, 0, 0, .15)
-    border-radius: 12px
-    height: 100%
-    object-fit: fill
-    width: 100%
+  @media screen and (max-width: 768px)
+    height: 40%
+    max-width: 40%
+    width: 40%
+    aspect-ratio: auto
+
+img
+  border-radius: 12px
+  height: 100%
+  object-fit: fill
+  width: 100%
+
+  @media screen and (max-width: 768px)
+    border: 0
+  
 
 .middle
   display: flex
@@ -35,8 +49,15 @@
   padding-left: 4%
   width: 100%
 
+  @media screen and (max-width: 768px)
+    width: 53%
+    font-weight: 300
+
   .row
     font-size: 1.2rem
+
+    @media screen and (max-width: 768px)
+      font-size: .8rem
 
   .name-wrapper
     display: flex
@@ -96,3 +117,29 @@
     -webkit-transform: translate(-50%, -50%)
     transform: translate(-50%, -50%)
     z-index: 10
+
+.like-button
+  height: 45px
+  padding-right: 15px
+  @media screen and (max-width: 768px)
+    padding-top: 10px
+    // margin-right: 50vw
+
+.circle
+  ::ng-deep .progress
+    width: 45px !important
+    height: 45px !important
+
+  ::ng-deep #progress-value
+    font-size: 14px !important
+.name
+  overflow: hidden
+  white-space: nowrap
+  text-overflow: ellipsis
+
+  @media screen and (max-width: 768px)
+    font-size: 1.1rem
+    font-weight: 300
+.buttons
+  @media screen and (max-width: 768px)
+    width: 100%

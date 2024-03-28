@@ -1,11 +1,47 @@
-import { LoadingCardComponent } from './../../cards/loading-card/loading-card.component';
-import { BatchDataService } from './../../../services/batch-data.service';
-import { CourseDataService } from './../../../services/course-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { PathDataService } from './../../../services/path-data.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { combineLatest } from 'rxjs';
+import { Store } from '@ngrx/store';
+import {
+  loadAllCourses,
+  loadEnrolledCourses,
+  loadFavoriteCourses,
+} from 'src/app/state/action/course.actions';
+import {
+  selectAllCourses,
+  selectAllCoursesError,
+  selectAllCoursesLoading,
+  selectEnrolledCourses,
+  selectEnrolledCoursesError,
+  selectEnrolledCoursesLoading,
+  selectFavoriteCourses,
+  selectFavoriteCoursesLoading,
+} from 'src/app/state/selector/course.selector';
+import { loadAllBatches } from 'src/app/state/action/batch.actions';
+import {
+  selectBatches,
+  selectBatchesError,
+  selectBatchesLoading,
+} from 'src/app/state/selector/batch.selector';
+import { Title } from 'src/app/constants/enums/title';
+import { RouterLinks } from 'src/app/constants/enums/routerLinks';
+import { Prefix } from 'src/app/constants/enums/prefix';
+import { Path } from 'src/app/models/Path';
+import { Course } from 'src/app/models/Course';
+import { Batch } from 'src/app/models/Batch';
+import {
+  loadAllPaths,
+  loadEnrolledPaths,
+} from 'src/app/state/action/path.actions';
+import {
+  selectAllPaths,
+  selectAllPathsError,
+  selectAllPathsLoading,
+  selectEnrolledPaths,
+  selectEnrolledPathsError,
+  selectEnrolledPathsLoading,
+} from 'src/app/state/selector/path.selector';
+import { Error } from 'src/app/models/Error';
 
 @Component({
   selector: 'app-all-section-container',
@@ -15,82 +51,231 @@ import { combineLatest } from 'rxjs';
 export class AllSectionContainerComponent implements OnInit {
   prefix: string = '';
   heading: string = '';
-  allPathsData: any[] = [];
-  allCoursesData: any[] = [];
-  allBatchesData: any[] = [];
-  onGoingPathsData: any[] = [];
-  onGoingCoursesData: any[] = [];
+  allPathsData: Path[] = [];
+  allCoursesData: Course[] = [];
+  allBatchesData: Batch[] = [];
   loading: boolean = true;
+  error: boolean = false;
+  errorCard: Error = {
+    message: '',
+    code: 0,
+  };
+  onGoingFlag: boolean = false;
+  //enums
+  Title = Title;
+  RouterLinks = RouterLinks;
+  Prefix = Prefix;
+  noContent: boolean = false;
+  height: number = 112;
   constructor(
-    private pathDataService: PathDataService,
+    private store: Store,
     private activatedRoute: ActivatedRoute,
-    private courseDataService: CourseDataService,
-    private batchDataService: BatchDataService,
     private router: Router
-  ) {
-    this.pathDataService.getEnrolledPaths().subscribe((data: any) => {
-      this.onGoingPathsData = data.data.enrolledPaths;
-    });
-    this.courseDataService.getEnrolledCourses().subscribe((data: any) => {
-      this.onGoingCoursesData = data.data.enrolledCourses;
-    });
-  }
+  ) {}
   getAllPaths() {
-    combineLatest([this.pathDataService.allPathsData$]).subscribe(
-      ([pathsdata]) => {
-        if (
-          typeof pathsdata === 'object' &&
-          Object.keys(pathsdata).length > 0
-        ) {
-          this.loading = false;
-          this.allPathsData = pathsdata.data;
-        }
+    this.store.dispatch(loadAllPaths());
+    this.store.select(selectAllPaths).subscribe((res) => {
+      if (res.length > 0) {
+        this.allPathsData = res;
       }
-    );
-    this.pathDataService.getPaths();
+    });
+
+    this.store.select(selectAllPathsError).subscribe((res) => {
+      if (res) {
+        this.error = true;
+        this.errorCard.message = res.message.split('`').slice(1);
+        this.errorCard.code = res.message.split('`').slice(0, 1);
+      } else {
+        this.error = false;
+      }
+    });
+
+    this.store.select(selectAllPathsLoading).subscribe((res) => {
+      if (!res) {
+        setTimeout(() => {
+          this.loading = false;
+        }, 500);
+      } else {
+        this.loading = true;
+      }
+    });
   }
   getAllCourses() {
-    this.courseDataService.getCoursesData();
-    combineLatest([this.courseDataService.allCourses$]).subscribe(
-      ([courseData]) => {
-        if (
-          typeof courseData === 'object' &&
-          Object.keys(courseData).length > 0
-        ) {
-          this.loading = false;
-          this.allCoursesData = courseData.data;
-          console.log(this.allCoursesData);
-        }
+    this.store.dispatch(loadAllCourses());
+
+    this.store.select(selectAllCourses).subscribe((res) => {
+      if (res.length > 0) {
+        this.allCoursesData = res;
       }
-    );
+    });
+
+    this.store.select(selectAllCoursesError).subscribe((res) => {
+      if (res) {
+        this.error = true;
+        this.errorCard.message = res.message.split('`').slice(1);
+        this.errorCard.code = res.message.split('`').slice(0, 1);
+      } else {
+        this.error = false;
+      }
+    });
+
+    this.store.select(selectAllCoursesLoading).subscribe((res) => {
+      if (!res) {
+        setTimeout(() => {
+          this.loading = false;
+        }, 500);
+      } else {
+        this.loading = true;
+      }
+    });
   }
   getAllBatches() {
-    this.batchDataService.getBatchesDetails();
-    combineLatest([this.batchDataService.allBatches$]).subscribe(
-      ([batchData]) => {
-        if (
-          typeof batchData === 'object' &&
-          Object.keys(batchData).length > 0
-        ) {
-          this.loading = false;
-          this.allBatchesData = batchData.data;
-          console.log(this.allBatchesData);
-        }
+    this.store.dispatch(loadAllBatches());
+    this.store.select(selectBatches).subscribe((res) => {
+      if (res.length > 0) {
+        this.allBatchesData = res;
       }
-    );
+    });
+
+    this.store.select(selectBatchesError).subscribe((res) => {
+      if (res) {
+        this.error = true;
+        this.errorCard.message = res.message.split('`').slice(1);
+        this.errorCard.code = res.message.split('`').slice(0, 1);
+      } else {
+        this.error = false;
+      }
+    });
+
+    this.store.select(selectBatchesLoading).subscribe((res) => {
+      if (!res) {
+        setTimeout(() => {
+          this.loading = false;
+        }, 500);
+      } else {
+        this.loading = true;
+      }
+    });
+  }
+  getEnrolledPaths() {
+    this.store.dispatch(loadEnrolledPaths());
+    this.store.select(selectEnrolledPaths).subscribe((res) => {
+      // console.log('hel;llo');
+      if (res.length > 0) {
+        this.allPathsData = res;
+      }
+    });
+
+    this.store.select(selectEnrolledPathsError).subscribe((res) => {
+      if (res) {
+        this.error = true;
+        this.errorCard.message = res.message.split('`').slice(1);
+        this.errorCard.code = res.message.split('`').slice(0, 1);
+      } else {
+        // console.log('hel;llo');
+        this.error = false;
+      }
+    });
+
+    this.store.select(selectEnrolledPathsLoading).subscribe((res) => {
+      if (!res) {
+        setTimeout(() => {
+          this.loading = false;
+        }, 500);
+      } else {
+        this.loading = true;
+      }
+    });
+  }
+  getEnrolledCourses() {
+    this.store.dispatch(loadEnrolledCourses());
+    this.store.select(selectEnrolledCourses).subscribe((res) => {
+      if (res.length > 0) {
+        this.allCoursesData = res;
+      }
+    });
+
+    this.store.select(selectEnrolledCoursesError).subscribe((res) => {
+      if (res) {
+        this.error = true;
+        this.errorCard.message = res.message.split('`').slice(1);
+        this.errorCard.code = res.message.split('`').slice(0, 1);
+      } else {
+        this.error = false;
+      }
+    });
+
+    this.store.select(selectEnrolledCoursesLoading).subscribe((res) => {
+      if (!res) {
+        setTimeout(() => {
+          this.loading = false;
+        }, 500);
+      } else {
+        this.loading = true;
+      }
+    });
+  }
+  getFavouriteCourses() {
+    this.store.dispatch(loadFavoriteCourses());
+    this.store.select(selectFavoriteCoursesLoading).subscribe((res) => {
+      if (res == false) {
+        setTimeout(() => {
+          this.loading = res;
+        }, 500);
+      }
+    });
+    this.store.select(selectFavoriteCourses).subscribe((res) => {
+      if (res.length > 0) {
+        // this.store.select(selectFavoritecourses).subscribe((res) => {
+        //   res = res.filter(
+        //     (course: Course) => course.id !== this.singleCourse.id
+        //   );
+        // });
+        this.allCoursesData = res;
+        this.noContent = false;
+      }
+      if (res.length == 0) {
+        this.noContent = true;
+      }
+    });
   }
   ngOnInit(): void {
     this.activatedRoute.url.subscribe((urlSegments) => {
-      console.log(urlSegments);
       if (urlSegments.length >= 1) {
         this.heading = urlSegments[0].path;
       }
       if (urlSegments.length >= 2) {
         this.prefix = urlSegments[1].path;
-        if (this.prefix == 'ongoing') {
-          this.prefix = 'my';
+        if (this.prefix == Prefix.ONGOING) {
+          this.onGoingFlag = true;
+          this.prefix = Prefix.MY;
         }
       }
     });
+    if (this.heading === Title.PATHS) {
+      this.height = 112;
+      if (this.prefix === Prefix.ALL) {
+        this.getAllPaths();
+      }
+      if (this.prefix === Prefix.MY) {
+        this.getEnrolledPaths();
+      }
+    } else if (this.heading === Title.COURSES) {
+      this.height = 262;
+      if (this.prefix === Prefix.ALL) {
+        this.getAllCourses();
+      }
+      if (this.prefix === Prefix.MY) {
+        this.getEnrolledCourses();
+      }
+      if (this.prefix === Prefix.FAVOURITES) {
+        this.getFavouriteCourses();
+      }
+    } else if (this.heading === Title.BATCHES) {
+      this.height = 200;
+      if (this.prefix === Prefix.ALL) {
+        this.getAllBatches();
+      }
+    }
   }
 }

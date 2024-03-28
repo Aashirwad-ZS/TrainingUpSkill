@@ -1,0 +1,14 @@
+<div class="page-wrapper">
+  <div class="page-content">
+    <img src="../../../assets/no-content.svg" class="nodata-image" />
+    <div class="error-message">
+      <div *ngIf="chapterFlag">Sorry no content to display.</div>
+      <div *ngIf="!chapterFlag">
+        Can not access chapters of not enrolled courses
+      </div>
+      <a *ngIf="chapterFlag" href="/dashboard"
+        ><div class="home-link">Go to Home Page</div></a
+      >
+    </div>
+  </div>
+</div>

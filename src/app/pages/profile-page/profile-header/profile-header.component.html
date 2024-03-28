@@ -10,9 +10,10 @@
     </div>
   </div>
   <div class="completion-rate">
-    <div>
+    <div class="completition-text">
       Completion Rate:
-      <app-circular-progress-bar></app-circular-progress-bar>
+    </div>
+    <div><app-circular-progress-bar [progress]="progress"></app-circular-progress-bar>
     </div>
     <div class="completion-logo"></div>
   </div>

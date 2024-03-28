@@ -10,6 +10,9 @@ import { CourseReviewsComponent } from './course-reviews/course-reviews.componen
 import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { CardsModule } from 'src/app/shared/cards/cards.module';
+import { CoursePageRoutingModule } from './course-page-routing.module';
+import { ShimmerModule } from 'src/app/shimmer/shimmer.module';
+import { ErrorPageModule } from 'src/app/error-page/error-page.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,14 @@ import { CardsModule } from 'src/app/shared/cards/cards.module';
     CoursePageComponent,
     CourseReviewsComponent,
   ],
-  imports: [CommonModule, MatIconModule, HttpClientModule, CardsModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    HttpClientModule,
+    CardsModule,
+    CoursePageRoutingModule,
+    ShimmerModule,
+    ErrorPageModule,
+  ],
 })
 export class CoursePageModule {}

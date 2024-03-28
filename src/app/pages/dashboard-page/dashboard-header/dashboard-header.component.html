@@ -1,23 +1,64 @@
 <div class="dashboard-header">
-  <div class="greeting-box">
-    <span>Hello Zopsmart !</span>
-    <p>It's good to see you here</p>
+  <div class="greeting-box ">
+    <div class="greeting-text">
+      <span class="header-count">Hello {{ userProfile.given_name | titlecase }}!</span>
+      <p>It's good to see you here</p>
+    </div>
+    <div *ngIf="isResponsive">
+      <img  class="welcome-image" src="assets/welcome-mobile.svg"  />
+    </div>
+
+
   </div>
   <a [routerLink]="['/', 'paths', 'ongoing']">
     <div class="enrolled-path">
-      <span>2</span>
-      Enrolled Paths
+      <div class="header-count">
+        <span *ngIf="!enrolledPathsNumber; else pathsData">_</span>
+        <ng-template #pathsData>{{ enrolledPathsNumber }}</ng-template>
+      </div>
+      <div class="message">
+        Enrolled<br> Paths
+      </div>
+
     </div>
   </a>
   <a [routerLink]="['/', 'courses', 'ongoing']">
-    <div class="enrolled-courses"><span>17</span> Enrolled Courses</div>
+    <div class="enrolled-courses">
+      <div class="header-count">
+        <span *ngIf="!enrolledCoursesNumber; else coursesData">_</span>
+        <ng-template #coursesData>{{ enrolledCoursesNumber }}</ng-template>
+      </div>
+      <div class="message">
+        Enrolled Courses
+      </div>
+
+    </div>
   </a>
-  <div class="recent-course">
+  <div class="recent-course" *ngIf="enrolledCourse;else loading" (click)="navigateToCourse()">
     <div class="recent-course-text">
-      <span>Testing the application</span>
-      <p>By Prashant</p>
+      <div>
+        <span class="course-name">{{enrolledCourse.courseName}}</span>
+      </div>
+      <div>
+        <p class="author">By {{enrolledCourse.createdBy.name}}</p>
+      </div>
+
+    </div>
+    <div>
+      <app-circular-progress-bar [progress]="enrolledCourse.progress"></app-circular-progress-bar>
     </div>
 
-    <i class="fa-solid fa-play play-button"></i>
+    <img src="assets/play-button.svg" class="play-button" />
   </div>
+  <ng-template #loading>
+    <div class="recent-course">
+      <div class="recent-course-text">
+        <span class="course-name">___</span>
+        <p class="author">By Admin</p>
+      </div>
+      <div>
+        <app-circular-progress-bar [progress]="0"></app-circular-progress-bar>
+      </div>
+    </div>
+  </ng-template>
 </div>

@@ -1,36 +1,72 @@
 <header class="navbar">
   <a [routerLink]="['/', 'dashboard']">
-    <span class="skill">Skill</span>
-    <span class="up">Up</span>
+    <!-- <span class="skill">Skill</span>
+    <span class="up">Up</span> -->
+    <img
+      class="logo"
+      [src]="
+        isDarkMode
+          ? 'assets/dark/skillup-dark.svg'
+          : 'assets/light/skillup-light.svg'
+      "
+      alt="SkillUp"
+    />
   </a>
   <div class="header-links">
-    <button class="favourite-button">
-      <i class="fa-solid fa-heart"></i>
+    <button routerLink="courses/favourites" *ngIf="!isResponsive">
+      <img
+        [src]="
+          isDarkMode
+            ? 'assets/dark/MyFavourites.svg'
+            : 'assets/light/MyFavourites.svg'
+        "
+        alt="favourite"
+      />
     </button>
-    <div class="search-bar">
-      <input class="search-box" type="text" placeholder="Search" />
-      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+    <div class="search-bar" *ngIf="!isResponsive">
+      <input
+        class="search-box"
+        type="text"
+        placeholder="Search"
+        [(ngModel)]="searchQuery"
+        (keyup.enter)="submitSearch()"
+      />
+      <img class="search-icon" src="assets/dark/Search.svg" />
+    </div>
+    <div *ngIf="isResponsive">
+      <button style="padding-left: 12px">
+        <img class="search-icon" src="assets/dark/Search.svg" />
+      </button>
     </div>
 
-    <app-theme-toggle></app-theme-toggle>
+    <app-theme-toggle *ngIf="!isResponsive"></app-theme-toggle>
 
     <div class="org-wrapper">
-      <div class="logo-wrapper" (click)="toggleOrgDropdown()">
-        <img class="org-image"
+      <div class="logo-wrapper">
+        <img
+          class="org-image"
           src="https://storage.googleapis.com/zopping-uploads/originals%2F20230404%2Fzopsmart-20230404-055540.png"
-          alt="" />
+          alt=""
+        />
         <div class="dropdown-icon">
-          <i class="fa-solid fa-caret-down"></i>
+          <img
+            [src]="
+              isDarkMode ? 'assets/dark/Expand.svg' : 'assets/light/Expand.svg'
+            "
+          />
         </div>
       </div>
-      <div class="dropdown user-organization" *ngIf="isOrgDropdownOpen">
+      <div class="user-organization dropdown" *ngIf="isOrgDropdownOpen">
         <div class="demo-wrapper">
           <div class="section current-org">
             <div class="section-head">Current Organization</div>
             <div class="organization-card">
-              <img class="organization-image"
+              <img
+                class="organization-image"
                 src="https://storage.googleapis.com/zopping-uploads/originals%2F20230404%2Fzopsmart-20230404-055540.png"
-                alt="org-logo" referrerpolicy="no-referrer" />
+                alt="org-logo"
+                referrerpolicy="no-referrer"
+              />
               <div class="organization-name limit-text-to-1-line">Zopsmart</div>
             </div>
           </div>
@@ -39,33 +75,62 @@
     </div>
 
     <div class="user-wrapper">
-      <img [src]="userProfile.picture" class="profile-image" (click)="toggleDropdown()" />
+      <img [src]="userProfile.picture" class="profile-image" alt="User Image" />
       <div class="dropdown" *ngIf="isDropdownOpen">
         <div class="profile-section">
           <div class="left-wrapper">
             <img [src]="userProfile.picture" class="user-image" />
           </div>
           <div class="right-wrapper">
-            <div class="user-name">{{ userProfile.given_name }} {{userProfile.family_name}}</div>
+            <div class="user-name">
+              {{ userProfile.given_name }} {{ userProfile.family_name }}
+            </div>
             <div class="user-email">{{ userProfile.email }}</div>
           </div>
         </div>
         <div class="bottom-section">
-          <a class="dropdown-actions" [routerLink]="['/', 'user']" (click)="toggleDropdown()">My Profile</a>
-          <a class="dropdown-actions" [routerLink]="['/', 'batches', 'all']" (click)="toggleDropdown()">
-            My Batches</a>
-          <a class="dropdown-actions" [routerLink]="['/', 'paths', 'ongoing']" (click)="toggleDropdown()">Ongoing
-            Paths</a>
-          <a class="dropdown-actions" [routerLink]="['/', 'courses', 'ongoing']" (click)="toggleDropdown()">Ongoing
-            Courses</a>
-          <a class="dropdown-actions" [routerLink]="['/', 'courses', 'ongoing']" (click)="toggleDropdown()">Favorite
-            Courses</a>
+          <a
+            class="dropdown-actions"
+            [routerLink]="['/', 'user']"
+            (click)="closeDropdown()"
+            >My Profile</a
+          >
+          <a
+            class="dropdown-actions"
+            [routerLink]="['/', 'batches', 'all']"
+            (click)="closeDropdown()"
+          >
+            My Batches</a
+          >
+          <a
+            class="dropdown-actions"
+            [routerLink]="['/', 'paths', 'ongoing']"
+            (click)="closeDropdown()"
+            >Ongoing Paths</a
+          >
+          <a
+            class="dropdown-actions"
+            [routerLink]="['/', 'courses', 'ongoing']"
+            (click)="closeDropdown()"
+            >Ongoing Courses</a
+          >
+          <a
+            class="dropdown-actions"
+            [routerLink]="['/', 'courses', 'favourites']"
+            (click)="closeDropdown()"
+            >Favorite Courses</a
+          >
           <div class="dropdown-actions theme-mode">
             <app-theme-toggle-text></app-theme-toggle-text>
           </div>
           <a class="dropdown-actions" href="/invitations">Invitations</a>
           <div class="dropdown-actions logout">
-            <a class="logout" [routerLink]="['/', 'login']" (click)="handleSignout()">Logout</a>
+            <a
+              class="logout"
+              [routerLink]="['/', 'login']"
+              (click)="handleSignout()"
+              >Logout</a
+            >
           </div>
         </div>
       </div>

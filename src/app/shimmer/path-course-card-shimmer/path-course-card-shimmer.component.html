@@ -1,0 +1,19 @@
+<div class="shimmer-array">
+    <app-shimmer-loading height="10px" width="150px"></app-shimmer-loading>
+    <ng-container *ngFor="let i of [].constructor(shimmerCount)">
+        <div class="shimmer-container">
+
+            <div class="shimmer-pathcard">
+                <div> <app-shimmer-loading shape="rect" width="209px" height="130px"></app-shimmer-loading></div>
+            </div>
+            <div class="shimmer-lines">
+                <ng-container *ngFor="let width of [ 40,40, 90,90,90]">
+                    <app-shimmer-loading [width]="width + '%'" height="10px  "></app-shimmer-loading>
+                </ng-container>
+
+
+            </div>
+
+        </div>
+    </ng-container>
+</div>

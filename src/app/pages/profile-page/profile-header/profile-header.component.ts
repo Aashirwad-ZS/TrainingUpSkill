@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileHeaderComponent implements OnInit {
   userProfile: any;
+  progress: number = 75;
+
   constructor() {}
 
   ngOnInit(): void {

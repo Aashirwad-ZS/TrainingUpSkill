@@ -2,10 +2,13 @@ footer
     width: 100vw
     display: flex
     flex-direction: column
-    height: 134px
+    height: 110px
     align-items: center
     justify-content: center
     background-color: var(--page-content-background-color)
+
+    @media screen and (max-width: 768px)
+        height: 100px
 
 footer
     .links
@@ -14,24 +17,41 @@ footer
         align-items: center
         gap: 30px
         font-size: 25px
-        font-family: monospace,sans-serif
-        letter-spacing: -2px
+        font-family: sans-serif
+    @media screen and (max-width: 768px)
+        .links
+            font-size: .8rem
+            display: flex
+            font-weight: 300
+            flex-direction: column
+            gap: 10px
 
 .rights
     text-align: center
     width: 100vw
     padding-bottom: 10px
 
+    @media screen and (max-width: 768px)
+        font-size: 0.8rem
+        padding: 10px
+
 .skill
     font-size: 2rem
     font-weight: 600
     margin-bottom: 10px
+
+    @media screen and (max-width: 768px)
+        font-size: 1.2rem
 .up
     display: inline-block
     font-size: 2rem
-    color: rgb(152, 110, 255)
+    color: var(--primary-font-link-color)
     font-weight: 600
     margin-bottom: 10px
+
+    @media screen and (max-width: 768px)
+        font-size: 1.2rem
+        margin-bottom: 5px
 
 a
     color: var(--primary-font-color)

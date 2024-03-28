@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PathDataService } from 'src/app/services/path-data.service';
+import { ThemeService } from '../../../services/theme.service';
 
-declare var handleSignOut: any;
+declare var google: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -12,43 +12,74 @@ export class HeaderComponent implements OnInit {
   userProfile: any;
   isDropdownOpen = false;
   isOrgDropdownOpen = false;
+  isDarkMode: boolean = false;
+  isResponsive: boolean = false;
+  searchQuery: string = '';
 
-  constructor(
-    private pathDataService: PathDataService,
-    private router: Router
-  ) {
-    // this.pathDataService.getRefreshToken().subscribe(() => {
-    setInterval(() => {
-      this.pathDataService.getRefreshToken().subscribe((res: any) => {
-        localStorage.setItem('token', res.data.accessToken);
-        console.log('token refreshed');
-      });
-    }, 60000);
+  constructor(private themeService: ThemeService, private router: Router) {
+    this.themeService.isDarkMode().subscribe((isDarkMode) => {
+      this.isDarkMode = isDarkMode;
+    });
   }
-  toggleDropdown() {
-    this.isDropdownOpen = !this.isDropdownOpen;
+
+  @HostListener('document:click', ['$event'])
+  clickout(event: MouseEvent) {
+    const clickedElement = event.target as Node;
+    if (
+      this.isDropdownOpen &&
+      !document.querySelector('.dropdown')?.contains(clickedElement)
+    ) {
+      this.isDropdownOpen = false;
+    } else if (
+      document.querySelector('.profile-image')?.contains(clickedElement) &&
+      !this.isDropdownOpen
+    ) {
+      this.isDropdownOpen = true;
+    }
+    if (
+      this.isOrgDropdownOpen &&
+      !document.querySelector('.user-organization')?.contains(clickedElement)
+    ) {
+      this.isOrgDropdownOpen = false;
+    } else if (
+      document.querySelector('.org-wrapper')?.contains(clickedElement) &&
+      !this.isDropdownOpen
+    ) {
+      this.isOrgDropdownOpen = true;
+    }
+  }
+
+  closeDropdown() {
     this.isOrgDropdownOpen = false;
-  }
-  toggleOrgDropdown() {
-    this.isOrgDropdownOpen = !this.isOrgDropdownOpen;
     this.isDropdownOpen = false;
   }
-  closeOrgOutside() {
-    this.isOrgDropdownOpen = false;
-  }
-
   handleSignout() {
-    handleSignOut();
+    google.accounts.id.disableAutoSelect();
     sessionStorage.removeItem('loggedInUser');
     this.router.navigate(['/login']).then(() => {
       window.location.reload();
     });
-    console.log('signout');
+    this.closeDropdown();
+    this.onResize();
+  }
 
-    this.toggleDropdown();
+  @HostListener('window:resize', ['$event'])
+  onResize(event?: any) {
+    this.isResponsive = window.innerWidth <= 768;
   }
 
   ngOnInit(): void {
     this.userProfile = JSON.parse(sessionStorage.getItem('loggedInUser') || '');
+    setTimeout(() => {
+      this.onResize();
+    }, 100);
+  }
+
+  submitSearch() {
+    // console.log(this.searchQuery); // replace this with your actual logic
+    this.router.navigate(
+      ['/search'],
+      { queryParams: {q: this.searchQuery}}
+    )
   }
 }

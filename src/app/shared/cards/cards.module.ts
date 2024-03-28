@@ -11,10 +11,11 @@ import { PathCourseCardComponent } from './path-course-card/path-course-card.com
 import { NameInfoCardComponent } from './name-info-card/name-info-card.component';
 import { LoadingCardComponent } from './loading-card/loading-card.component';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import {
-  ProgressBarComponent,
-  ProgressBarModule,
-} from '@progress/kendo-angular-progressbar';
+import { RandomColorDirective } from '../containers/card-container/random-color.directive';
+import { RouterModule } from '@angular/router';
+import { ShimmerLoadingComponent } from '../../shimmer/card-shimmer/shimmer-loading/shimmer-loading.component';
+import { ErrorCardComponent } from './error-card/error-card.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -27,12 +28,16 @@ import {
     PathCourseCardComponent,
     NameInfoCardComponent,
     LoadingCardComponent,
+    ShimmerLoadingComponent,
+    ErrorCardComponent,
   ],
   imports: [
     CommonModule,
     FormsModule,
-    ProgressBarModule,
     ProgressSpinnerModule,
+    RandomColorDirective,
+    RouterModule,
+    ToastModule,
   ],
   exports: [
     BatchCardComponent,
@@ -44,6 +49,8 @@ import {
     PathCourseCardComponent,
     NameInfoCardComponent,
     LoadingCardComponent,
+    ShimmerLoadingComponent,
+    ErrorCardComponent,
   ],
 })
 export class CardsModule {}
